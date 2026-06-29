@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chronica — Schmerztagebuch</title>
+<style>
+  /* ----------------------------------------------------------
+     Chronica marketing site
+     Design language lifted from the iOS app:
+     - warm off-white #f9fafb, cards #ffffff, borders #e5e7eb
+     - primary accent red #ef4444
+     - system / Helvetica
+     - card radius 16, button radius 12, chip radius 10/pill
+     ---------------------------------------------------------- */
+
+  :root {
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --text-4: #9ca3af;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+
+    --accent: #ef4444;
+    --accent-600: #dc2626;
+    --accent-100: #fee2e2;
+    --accent-50: #fef2f2;
+
+    --purple: #a855f7;
+    --purple-100: #f3e8ff;
+
+    --radius-card: 16px;
+    --radius-btn: 12px;
+    --radius-chip: 10px;
+
+    --shadow-card: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.04);
+    --shadow-hover: 0 6px 12px rgba(17,24,39,.06), 0 24px 48px rgba(17,24,39,.08);
+
+    --max: 1200px;
+    --pad: 24px;
+
+    --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Roboto, sans-serif;
+  }
+
+  html[data-theme="dark"] {
+    --bg: #000000;
+    --card: #111111;
+    --text: #ffffff;
+    --text-2: #e5e7eb;
+    --text-3: #9ca3af;
+    --text-4: #6b7280;
+    --border: #222222;
+    --border-light: #1a1a1a;
+    --accent-50: #1a0808;
+    --accent-100: #2a0d0d;
+    --shadow-card: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+    --shadow-hover: 0 6px 12px rgba(0,0,0,.5), 0 24px 48px rgba(0,0,0,.5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { font-size: 16px; line-height: 1.5; }
+  a { color: inherit; }
+  img, svg { display: block; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; color: inherit;
+  }
+  .logo-mark {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: block;
+  }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-3); }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px; border-radius: var(--radius-btn);
+    background: var(--accent); color: white; text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: background 120ms ease;
+  }
+  .nav-cta:hover { background: var(--accent-600); }
+
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO — VARIANT B-G3: AURA BEHIND PHONE ---------- */
+  .hero { padding: 32px 0 80px; position: relative; overflow: hidden; }
+  .hero-glow { display: none; }
+  .hero-grid { position: relative; z-index: 1; align-items: center; }
+
+  /* Phone frame */
+  .phone-wrap {
+    display: flex; justify-content: center; align-items: center;
+    perspective: 1400px;
+    position: relative;
+  }
+  .phone-wrap::before {
+    content: '';
+    position: absolute;
+    width: 100%; height: 100%;
+    max-width: 480px; max-height: 600px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(239,68,68,0.32);
+    filter: blur(110px);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: aura-breathe 6s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes aura-breathe {
+    0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+    50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
+  }
+  .phone-wrap > .phone { position: relative; z-index: 1; }
+  .phone {
+    width: 320px; aspect-ratio: 320 / 660;
+    background: #111;
+    border-radius: 44px;
+    padding: 14px;
+    box-shadow:
+      0 0 0 2px #2a2a2a inset,
+      0 30px 60px -10px rgba(0,0,0,0.35),
+      0 18px 36px -18px rgba(239,68,68,0.4);
+    transform: rotate(-4deg) rotateY(-6deg) rotateX(3deg);
+    transition: transform 600ms cubic-bezier(.2,.8,.2,1);
+    position: relative;
+  }
+  .phone:hover { transform: rotate(-2deg) rotateY(-3deg) rotateX(1deg); }
+  .phone::before {
+    /* notch */
+    content: '';
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 22px; background: #111;
+    border-radius: 0 0 14px 14px;
+    z-index: 2;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    border-radius: 32px;
+    padding: 36px 18px 24px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-screen .ps-label {
+    font-size: 10px; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .phone-screen .ps-title {
+    font-size: 16px; font-weight: 700; margin: 0 0 14px;
+  }
+  .phone-screen .ps-title .muted { color: var(--text-3); font-weight: 500; font-size: 12px; }
+  .phone-screen .ps-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .phone-screen .ps-grid .hm-cell { border-radius: 4px; }
+  .phone-screen .ps-legend {
+    margin-top: 14px; display: flex; align-items: center; justify-content: space-between;
+    font-size: 10px; color: var(--text-3);
+  }
+  .phone-screen .ps-legend .scale { display: flex; gap: 3px; }
+  .phone-screen .ps-legend .scale i { width: 10px; height: 10px; border-radius: 2px; }
+  .phone-screen .ps-tabs {
+    position: absolute; left: 18px; right: 18px; bottom: 18px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 6px;
+    font-size: 10px; color: var(--text-3); text-align: center; font-weight: 600;
+  }
+  .phone-screen .ps-tabs span { padding: 6px 0; border-radius: 8px; }
+  .phone-screen .ps-tabs span.on { background: var(--accent); color: white; }
+
+  @media (max-width: 900px) {
+    .phone { width: 260px; transform: none; }
+    .phone:hover { transform: none; }
+    .hero-grid > div:first-child { text-align: center; }
+    .hero-ctas { justify-content: center; }
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 10px; border-radius: 999px;
+    background: var(--accent-50); color: var(--accent-600);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1px solid color-mix(in oklab, var(--accent) 25%, transparent);
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  h1.title {
+    margin: 20px 0 16px;
+    font-size: clamp(40px, 5.4vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .lede {
+    font-size: 19px; color: var(--text-3); max-width: 48ch;
+    text-wrap: pretty;
+  }
+  .hero-ctas { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 20px; border-radius: var(--radius-btn);
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    border: 1px solid transparent; cursor: pointer;
+    font-family: inherit;
+    transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+  }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-600); }
+  .btn-secondary { background: var(--card); color: var(--text); border-color: var(--border); }
+  .btn-secondary:hover { border-color: var(--text-3); }
+  .btn:active { transform: translateY(1px); }
+
+  .hero-meta {
+    margin-top: 28px; display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 13px; color: var(--text-3);
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .hero-meta svg { width: 14px; height: 14px; }
+
+  /* hero visual: a composed app-like card */
+  .hero-visual {
+    position: relative;
+  }
+  .hero-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 24px; padding: 24px;
+    box-shadow: var(--shadow-hover);
+  }
+  .hero-card h3 { margin: 0 0 4px; font-size: 15px; font-weight: 700; }
+  .hero-card .sub { font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+
+  /* ---------- SECTION BASE ---------- */
+  section { padding: 96px 0; }
+  .section-title {
+    font-size: clamp(28px, 3.2vw, 44px);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  .section-lede {
+    font-size: 18px; color: var(--text-3); max-width: 60ch;
+    text-wrap: pretty; margin: 0;
+  }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  /* ---------- PROBLEM ---------- */
+  .problem { border-top: 1px solid var(--border); }
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .problem-quote {
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.35; letter-spacing: -0.015em;
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+  .problem-quote .hl { color: var(--accent); }
+  .problem-stats { display: grid; gap: 16px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-card); padding: 22px 24px;
+  }
+  .stat-card .n {
+    font-size: 40px; font-weight: 700; letter-spacing: -0.03em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-card .t { color: var(--text-3); font-size: 14px; max-width: 34ch; margin-top: 4px; }
+
+  /* ---------- FEATURE SECTIONS ---------- */
+  .feat { border-top: 1px solid var(--border); }
+  .feat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .feat-row.reverse .feat-text { order: 2; }
+  .feat-text h2 { margin: 10px 0 14px; }
+  .feat-text p { color: var(--text-3); font-size: 17px; max-width: 48ch; text-wrap: pretty; }
+  .feat-list { margin-top: 24px; display: grid; gap: 14px; }
+  .feat-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    list-style: none;
+    font-size: 15px; color: var(--text-2);
+  }
+  .feat-list ul { padding: 0; margin: 0; }
+  .check {
+    flex: 0 0 20px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent-100); color: var(--accent);
+    display: grid; place-items: center;
+    margin-top: 2px;
+  }
+  .check svg { width: 12px; height: 12px; }
+
+  /* ---------- VISUAL MODULES (reconstructed app elements) ---------- */
+  .module {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 24px; padding: 28px;
+    box-shadow: var(--shadow-card);
+  }
+  .module + .module { margin-top: 16px; }
+
+  /* segment control (Kopf/Unterbauch etc.) */
+  .seg {
+    display: inline-grid; grid-auto-flow: column; gap: 2px;
+    background: color-mix(in oklab, var(--border) 55%, transparent);
+    padding: 3px; border-radius: 10px;
+    width: 100%;
+  }
+  .seg button {
+    font: inherit; border: 0; background: transparent; cursor: pointer;
+    padding: 9px 14px; border-radius: 8px; color: var(--text-3);
+    font-size: 13px; font-weight: 600;
+  }
+  .seg button.on { background: var(--card); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  html[data-theme="dark"] .seg button.on { box-shadow: 0 0 0 1px var(--border); }
+
+  /* ---- Heatmap ---- */
+  .heatmap { display: grid; gap: 18px; }
+  .heatmap h4 { margin: 0; font-size: 13px; font-weight: 700; color: var(--text-3); letter-spacing: 0.02em; }
+  .heatmap .year { color: var(--text-4); font-size: 11px; letter-spacing: 0.1em; }
+  .hm-month { display: grid; gap: 8px; }
+  .hm-month .mo { font-size: 14px; font-weight: 600; color: var(--text); }
+  .hm-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
+  .hm-cell {
+    aspect-ratio: 1/1; border-radius: 4px;
+    background: color-mix(in oklab, var(--border) 80%, transparent);
+  }
+  .hm-cell.today { outline: 1.5px solid var(--text-3); outline-offset: -1px; }
+  .hm-cell.l1 { background: color-mix(in oklab, var(--accent) 18%, var(--card)); }
+  .hm-cell.l2 { background: color-mix(in oklab, var(--accent) 38%, var(--card)); }
+  .hm-cell.l3 { background: color-mix(in oklab, var(--accent) 58%, var(--card)); }
+  .hm-cell.l4 { background: color-mix(in oklab, var(--accent) 78%, var(--card)); }
+  .hm-cell.l5 { background: var(--accent); }
+  .hm-cell.l6 { background: color-mix(in oklab, var(--accent) 88%, #000); }
+
+  /* ---- Chart (Schmerzkurve) ---- */
+  .chart-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 14px 10px;
+  }
+  .chart-label { font-size: 12px; color: var(--text-3); margin-bottom: 8px; }
+  .chart-svg { width: 100%; height: 220px; display: block; }
+
+  /* ---- Chips ---- */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 12px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    background: var(--card); color: var(--text-2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .chip.on {
+    background: color-mix(in oklab, var(--accent) 15%, var(--card));
+    color: var(--accent);
+    border-color: color-mix(in oklab, var(--accent) 35%, transparent);
+  }
+
+  /* ---- Pain scale buttons ---- */
+  .scale {
+    display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px;
+    margin-top: 4px;
+  }
+  .scale button {
+    padding: 12px 0; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--card); font: inherit; font-weight: 600;
+    color: var(--text-2); cursor: pointer;
+    font-size: 14px;
+    transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .scale button.on { background: var(--accent); color: white; border-color: var(--accent); }
+
+  /* ---- Wizard progress ---- */
+  .progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 16px 0 20px; }
+  .progress span { height: 3px; border-radius: 3px; background: var(--border); transition: background 300ms ease; }
+  .progress span.done { background: var(--accent); }
+
+  /* ---- Stat bars ---- */
+  .statbars { display: grid; gap: 10px; }
+  .statbars h5 {
+    margin: 4px 0 6px; font-size: 14px; font-weight: 700;
+  }
+  .statrow { display: grid; grid-template-columns: 1fr 2fr auto; align-items: center; gap: 12px; font-size: 14px; }
+  .statrow .lbl { color: var(--text-2); }
+  .statrow .bar { height: 8px; background: var(--border-light); border-radius: 6px; overflow: hidden; }
+  .statrow .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 6px; }
+  .statrow .n { color: var(--text-3); font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  .stat-insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 32px; }
+  .insight { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+  .insight-k { font-size: 18px; font-weight: 700; color: var(--accent); letter-spacing: -0.015em; }
+  .insight-l { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+  /* ---- Daily profile bars (24h) ---- */
+  .daily {
+    display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px;
+    height: 90px; align-items: end;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-light);
+    margin-top: 8px;
+  }
+  .daily b { display: block; background: var(--accent); border-radius: 3px 3px 0 0; }
+  .daily-labels { display: grid; grid-template-columns: repeat(4, 1fr); font-size: 11px; color: var(--text-4); margin-top: 6px; }
+  .daily-legend { margin-top: 12px; font-size: 11px; color: var(--text-4); }
+
+  /* ---- Confirm check ---- */
+  .confirm { text-align: center; padding: 24px 0; }
+  .confirm .circle {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--accent-100); color: var(--accent);
+    display: inline-grid; place-items: center; margin-bottom: 16px;
+  }
+  .confirm .circle svg { width: 34px; height: 34px; }
+  .confirm h4 { margin: 0 0 4px; font-size: 18px; font-weight: 700; }
+  .confirm p { color: var(--text-3); font-size: 14px; margin: 0; }
+
+  /* ---- Doctor report preview ---- */
+  .report {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 40px 44px;
+    aspect-ratio: 1 / 1.414;
+    position: relative;
+    overflow: hidden;
+    font-size: 13px; line-height: 1.5;
+  }
+  html[data-theme="dark"] .report { background: #0a0a0a; }
+  .report .rhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .report .rtitle { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+  .report .rmeta { color: var(--text-3); font-size: 11px; text-align: right; line-height: 1.4; }
+  .report h6 { margin: 20px 0 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+  .report .kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 8px; }
+  .report .kpi > div { background: var(--accent-50); border-radius: 10px; padding: 10px 12px; }
+  .report .kpi .v { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+  .report .kpi .l { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .report .rhm { display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; }
+  .report .rhm > i {
+    aspect-ratio: 1/1; border-radius: 2px; background: var(--border-light);
+    display: block;
+  }
+
+  /* ---- FAQ ---- */
+  .faq-list { display: grid; gap: 8px; max-width: 820px; margin: 40px auto 0; }
+  .faq-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-card); padding: 4px 22px;
+  }
+  .faq-item summary {
+    list-style: none; cursor: pointer;
+    padding: 18px 0; font-weight: 600; font-size: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+"; font-weight: 400; color: var(--text-3); font-size: 22px;
+    transition: transform 160ms ease; display: inline-block;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item .a { padding: 0 0 20px; color: var(--text-3); font-size: 15px; max-width: 64ch; text-wrap: pretty; }
+
+  /* ---- Privacy ---- */
+  .priv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+  .priv-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-card); padding: 24px;
+  }
+  .priv-card { display: flex; align-items: center; gap: 14px; }
+  .priv-card .ico {
+    flex: 0 0 36px;
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent-50); color: var(--accent);
+    display: grid; place-items: center;
+  }
+  .priv-card .ico svg { width: 18px; height: 18px; }
+  .priv-card h4 { margin: 0; font-size: 16px; font-weight: 700; }
+  .priv-card p { margin: 0; color: var(--text-3); font-size: 14px; text-wrap: pretty; }
+
+  /* ---- Download ---- */
+  .download {
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .download .cta-wrap { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
+
+  /* ---- Footer ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0 56px;
+    font-size: 13px; color: var(--text-3);
+  }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-links { display: flex; gap: 20px; }
+  .foot-links a { text-decoration: none; color: var(--text-3); }
+  .foot-links a:hover { color: var(--text); }
+
+  /* ---- Section reveal on scroll ---- */
+  .feat, .download, .footer { opacity: 1; }
+  .reveal-section { opacity: 0; transform: translateY(32px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
+  .reveal-section.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-section { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---- feat-list / feat-copy toggle ---- */
+  body[data-copymode="text"] .feat-list { display: none; }
+  body[data-copymode="haken"] .feat-copy { display: none; }
+
+  /* ---- Tweaks panel ---- */
+  .tweaks-panel {
+    position: fixed; right: 20px; bottom: 20px; z-index: 100;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 14px;
+    box-shadow: var(--shadow-hover);
+    width: 260px; display: none;
+    font-size: 13px;
+  }
+  .tweaks-panel.open { display: block; }
+  .tweaks-panel h5 { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+  .tweaks-row { display: grid; gap: 6px; margin-bottom: 14px; }
+  .tweaks-row label { font-weight: 600; color: var(--text); }
+  .tweaks-row .sub { color: var(--text-3); font-size: 11px; }
+  .tweaks-row .seg { font-size: 12px; }
+  .tweaks-row input[type="text"] {
+    width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); font: inherit; font-size: 13px;
+  }
+  .swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+  .swatches button {
+    width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border);
+    cursor: pointer; padding: 0;
+  }
+  .swatches button.on { border-color: var(--text); }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    section { padding: 72px 0; }
+    .hero-grid, .problem-grid, .feat-row, .priv-grid { grid-template-columns: 1fr; gap: 40px; }
+    .feat-row.reverse .feat-text { order: 0; }
+    .priv-grid { grid-template-columns: 1fr; }
+  }
+
+  /* tiny helpers */
+  .muted { color: var(--text-3); }
+  .center { text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- ============= NAV ============= -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#report">Arztbericht</a>
+      <a href="#privacy">Datenschutz</a>
+      <a href="FAQ.html">FAQ</a>
+    </div>
+    <a class="nav-cta" href="#download" data-cta-text>App laden</a>
+  </div>
+</nav>
+
+<!-- ============= HERO ============= -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="title">Dein täglicher Begleiter bei chronischen Schmerzen</h1>
+    </div>
+
+    <!-- Hero visual: phone mockup -->
+    <div class="hero-visual phone-wrap">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="ps-label">ÜBERSICHT</div>
+          <h3 class="ps-title">Kopf <span class="muted">· 30 Tage</span></h3>
+          <div id="hero-heatmap" class="ps-grid"></div>
+          <div class="ps-legend">
+            <span>wenig</span>
+            <div class="scale">
+              <i class="hm-cell"></i><i class="hm-cell l1"></i><i class="hm-cell l2"></i><i class="hm-cell l3"></i><i class="hm-cell l4"></i><i class="hm-cell l5"></i>
+            </div>
+            <span>viel</span>
+          </div>
+          <div class="ps-tabs">
+            <span class="on">Heute</span><span>Übersicht</span><span>Stats</span><span>Mehr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- legacy hero-card (hidden via display:none below) -->
+    <div style="display:none;">
+      <div class="hero-card">
+        <div style="display:flex; justify-content: space-between; align-items:center; margin-top:14px; font-size:12px; color: var(--text-3);">
+          <span>wenig</span>
+          <div style="display:flex; gap:4px;">
+            <i class="hm-cell" style="width:14px;height:14px;"></i>
+            <i class="hm-cell l1" style="width:14px;height:14px;"></i>
+            <i class="hm-cell l2" style="width:14px;height:14px;"></i>
+            <i class="hm-cell l3" style="width:14px;height:14px;"></i>
+            <i class="hm-cell l4" style="width:14px;height:14px;"></i>
+            <i class="hm-cell l5" style="width:14px;height:14px;"></i>
+          </div>
+          <span>viel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= PROBLEM ============= -->
+<section class="problem" id="warum">
+  <div class="wrap">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <span class="section-eyebrow">Warum Chronica</span>
+      <p class="problem-quote" style="font-size: clamp(26px, 2.6vw, 38px); margin: 8px 0 0;">
+        „Wann hatten Sie das letzte Mal Kopfschmerzen?" — eine einfache Frage.
+        <span class="hl">Aber die ehrliche Antwort steckt in Mustern, nicht in Erinnerungen.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FEATURE 1 — ÜBERSICHT (Heatmap) ============= -->
+<section class="feat" id="features">
+  <div class="wrap feat-row">
+    <div class="feat-text">
+      <span class="section-eyebrow">Übersicht</span>
+      <h2 class="section-title">Monate auf einen Blick — als Heatmap.</h2>
+      <ul class="feat-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Alle Monate seit deinem ersten Eintrag — vertikal gescrollt.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Heute immer markiert, Tag antippen öffnet den Tagesdetail.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Pro Kategorie eine eigene Heatmap — Kopf, Unterbauch, oder eigene.</li>
+      </ul>
+    </div>
+
+    <!-- Heatmap module -->
+    <div class="module" aria-label="Kalender-Heatmap">
+      <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 18px;">
+        <div>
+          <div style="font-size:12px; color: var(--text-3); letter-spacing:0.08em;">KOPF</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="seg" style="width:auto;">
+          <button class="on">Kopf</button>
+          <button>Unterbauch</button>
+        </div>
+      </div>
+      <div class="heatmap">
+        <div class="hm-month">
+          <div class="mo">März</div>
+          <div class="hm-grid" id="hm-mar"></div>
+        </div>
+        <div class="hm-month">
+          <div class="mo">April</div>
+          <div class="hm-grid" id="hm-apr"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FEATURE 2 — HEUTE (Chart) ============= -->
+<section class="feat">
+  <div class="wrap feat-row reverse">
+    <div class="feat-text">
+      <span class="section-eyebrow">Heute</span>
+      <h2 class="section-title">Zeichne deinen Tag — mit dem Finger.</h2>
+      <ul class="feat-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Stundengenaue Kurve, 0 bis 10.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Vergangene Tage nachtragen — mit Pfeilnavigation.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Neu zeichnen jederzeit, nichts ist in Stein gemeißelt.</li>
+      </ul>
+    </div>
+
+    <div class="module" aria-label="Schmerzkurve">
+      <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 16px;">
+        <div>
+          <div style="font-size:12px; color: var(--text-3); letter-spacing:0.08em;">TAGESVERLAUF</div>
+          <div style="font-size:17px; font-weight:700; margin-top:2px;">Heute</div>
+        </div>
+        <div class="seg" style="width:auto;">
+          <button class="on">Kopf</button>
+          <button>Unterbauch</button>
+        </div>
+      </div>
+      <div class="chart-label">Zeichne mit dem Finger den Schmerzverlauf (0 = kein Schmerz, 10 = maximum).</div>
+      <div class="chart-wrap">
+        <svg class="chart-svg" viewBox="0 0 460 220" preserveAspectRatio="none" id="pain-chart"></svg>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:16px;">
+        <button class="btn btn-secondary" style="padding:12px; justify-content:center;">Neu zeichnen</button>
+        <button class="btn btn-primary" style="padding:12px; justify-content:center;">Speichern</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FEATURE 3 — ABEND (Wizard) ============= -->
+<section class="feat">
+  <div class="wrap feat-row">
+    <div class="feat-text">
+      <span class="section-eyebrow">Abend-Check-in</span>
+      <h2 class="section-title">Vier Schritte, mehr nicht.</h2>
+      <ul class="feat-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Alles ist Mehrfachauswahl — echt, nicht vereinfacht.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Eigene Symptome hinzufügen und wieder löschen.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Fertig? Ein großes grünes Häkchen — und Ruhe.</li>
+      </ul>
+    </div>
+
+    <!-- Wizard (interactive) -->
+    <div class="module" id="wizard">
+      <div style="font-size:13px; font-weight:700; margin-bottom:12px;">Abend-Eintrag</div>
+      <div class="seg">
+        <button class="on">Kopf</button>
+        <button>Unterbauch</button>
+      </div>
+      <div class="progress" id="wz-progress"><span></span><span></span><span></span><span></span></div>
+      <div style="font-size:11px; color: var(--text-3); letter-spacing:0.1em;">SCHRITT <span id="wz-step">1</span> VON 4</div>
+      <div style="font-size:18px; font-weight:700; margin:4px 0 14px;" id="wz-title">Gesamtschmerz</div>
+
+      <div class="wz-pane" data-step="1">
+        <div class="scale" id="wz-scale">
+          <button data-v="0">0</button><button data-v="1">1</button><button data-v="2">2</button>
+          <button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button>
+          <button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button>
+          <button data-v="9">9</button><button data-v="10">10</button>
+        </div>
+        <div style="font-size:12px; color: var(--text-3); margin-top:10px;">0 = kein Schmerz · 10 = maximum</div>
+      </div>
+
+      <div class="wz-pane" data-step="2" hidden>
+        <div class="chip-row" data-multi>
+          <span class="chip">Stirn</span><span class="chip">Hinterkopf</span><span class="chip">Schläfen</span><span class="chip">Ganzer Kopf</span><span class="chip">Nacken</span>
+        </div>
+      </div>
+
+      <div class="wz-pane" data-step="3" hidden>
+        <div class="chip-row" data-multi>
+          <span class="chip">Pulsierend / stechend</span><span class="chip">Dumpf / drückend</span><span class="chip">Ziehend</span><span class="chip">Brennend</span>
+        </div>
+      </div>
+
+      <div class="wz-pane" data-step="4" hidden>
+        <div class="chip-row" data-multi>
+          <span class="chip">Übelkeit</span><span class="chip">Lichtempfindlichkeit</span><span class="chip">Müdigkeit</span><span class="chip">Schwindel</span><span class="chip">Geräuschempfindlichkeit</span>
+        </div>
+      </div>
+
+      <div class="wz-pane confirm" data-step="5" hidden style="padding: 28px 0 8px;">
+        <div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></div>
+        <h4>Kopf-Eintrag gespeichert</h4>
+        <p>Alle Fragen für Kopf wurden beantwortet.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 2fr; gap:10px; margin-top:22px;" id="wz-nav">
+        <button class="btn btn-secondary" id="wz-back" style="padding:12px; justify-content:center;">Zurück</button>
+        <button class="btn btn-primary" id="wz-next" style="padding:12px; justify-content:center;">Weiter</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FEATURE 4 — STATISTIK ============= -->
+<section class="feat">
+  <div class="wrap feat-row reverse">
+    <div class="feat-text">
+      <span class="section-eyebrow">Statistik</span>
+      <h2 class="section-title">Aus vielen Einträgen wird ein Muster.</h2>
+      <ul class="feat-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Horizontale Häufigkeits-Balken — sortiert nach Stärke.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Tagesprofil: Balkenhöhe = Ø-Schmerz, Deckkraft = Häufigkeit.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Bereit fürs Arztgespräch — nicht nur ein Bauchgefühl.</li>
+      </ul>
+      <div class="stat-insights">
+        <div class="insight"><div class="insight-k">Ø 4.2</div><div class="insight-l">Durchschnittlicher Schmerz</div></div>
+        <div class="insight"><div class="insight-k">12–15 Uhr</div><div class="insight-l">Häufigste Tageszeit</div></div>
+        <div class="insight"><div class="insight-k">Schläfen</div><div class="insight-l">Häufigster Ort</div></div>
+      </div>
+    </div>
+
+    <div class="module" aria-label="Statistik">
+      <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 14px;">
+        <div style="font-size:12px; color: var(--text-3); letter-spacing:0.08em;">STATISTIK · KOPF</div>
+        <div style="font-size:12px; color: var(--text-3);">13 Einträge · 30 Tage</div>
+      </div>
+      <div class="seg" style="margin-bottom:22px;">
+        <button>7 Tage</button>
+        <button class="on">30 Tage</button>
+        <button>90 Tage</button>
+      </div>
+
+      <div class="statbars">
+        <h5>Ort</h5>
+        <div class="statrow"><span class="lbl">Schläfen</span>     <span class="bar"><i style="width:60%"></i></span><span class="n">6</span></div>
+        <div class="statrow"><span class="lbl">Hinterkopf</span>   <span class="bar"><i style="width:30%"></i></span><span class="n">3</span></div>
+        <div class="statrow"><span class="lbl">Ganzer Kopf</span>  <span class="bar"><i style="width:20%"></i></span><span class="n">2</span></div>
+        <div class="statrow"><span class="lbl">Stirn</span>        <span class="bar"><i style="width:10%"></i></span><span class="n">1</span></div>
+
+        <h5 style="margin-top:16px;">Charakter</h5>
+        <div class="statrow"><span class="lbl">Pulsierend</span>   <span class="bar"><i style="width:90%"></i></span><span class="n">9</span></div>
+        <div class="statrow"><span class="lbl">Dumpf</span>        <span class="bar"><i style="width:30%"></i></span><span class="n">3</span></div>
+
+        <h5 style="margin-top:16px;">Begleitsymptome</h5>
+        <div class="statrow"><span class="lbl">Übelkeit</span>         <span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
+        <div class="statrow"><span class="lbl">Lichtempfindlichkeit</span><span class="bar"><i style="width:12%"></i></span><span class="n">1</span></div>
+
+        <h5 style="margin-top:16px;">Tagesverlauf</h5>
+        <div class="daily" id="daily-bars"></div>
+        <div class="daily-labels">
+          <span>00</span><span>06</span><span>12</span><span>18</span>
+        </div>
+        <div class="daily-legend">Balkenhöhe = Ø Schmerz · Deckkraft = Häufigkeit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= ARZTBERICHT ============= -->
+<section class="feat" id="report">
+  <div class="wrap feat-row">
+    <div class="feat-text">
+      <span class="section-eyebrow">Arztbericht</span>
+      <h2 class="section-title">Ganz einfach PDF-Datei drucken.</h2>
+      <ul class="feat-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>PDF im A4-Format — druckreif für die Sprechstunde.</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Markdown-Export für die KI-Auswertung (ChatGPT, Claude).</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Pro Kategorie eine Seite mit Kurve, Heatmap und Symptom-Verteilung.</li>
+      </ul>
+    </div>
+
+    <!-- Fake doctor's report -->
+    <div class="report">
+      <div class="rhead">
+        <div class="rtitle">Chronica — Schmerzbericht</div>
+        <div class="rmeta">
+          18. April 2026<br/>
+          Zeitraum: 30 Tage
+        </div>
+      </div>
+
+      <h6>Kopf · Zusammenfassung</h6>
+      <div class="kpi">
+        <div><div class="v">4.2</div><div class="l">Ø Schmerz</div></div>
+        <div><div class="v">13</div><div class="l">Einträge</div></div>
+        <div><div class="v">7</div><div class="l">Peak-Tage</div></div>
+      </div>
+
+      <h6>Kalender (30 Tage)</h6>
+      <div class="rhm" id="report-hm"></div>
+
+      <h6 style="margin-top:18px;">Tagesprofil (Ø Schmerz pro Stunde)</h6>
+      <div class="daily" id="report-daily" style="height:54px;"></div>
+
+      <h6 style="margin-top:18px;">Häufigste Begleitsymptome</h6>
+      <div class="statbars" style="gap:6px;">
+        <div class="statrow"><span class="lbl">Übelkeit</span><span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
+        <div class="statrow"><span class="lbl">Lichtempfindl.</span><span class="bar"><i style="width:12%"></i></span><span class="n">1</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= PRIVACY ============= -->
+<section class="feat" id="privacy">
+  <div class="wrap">
+    <span class="section-eyebrow">Datenschutz</span>
+    <h2 class="section-title" style="max-width: 22ch;">Deine Schmerzdaten gehören dir.</h2>
+
+    <div class="priv-grid">
+      <div class="priv-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6l9-4z"/></svg>
+        </div>
+        <h4>Lokal gespeichert</h4>
+      </div>
+      <div class="priv-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/></svg>
+        </div>
+        <h4>Kein Tracking</h4>
+      </div>
+      <div class="priv-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 4v16M16 4v16M4 12h16"/></svg>
+        </div>
+        <h4>Export in deiner Hand</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= DOWNLOAD ============= -->
+<section class="download" id="download">
+  <div class="wrap">
+    <span class="section-eyebrow">Download</span>
+    <h2 class="section-title">Fang heute Abend an.</h2>
+    <div class="cta-wrap">
+      <a class="btn btn-primary" href="#" data-cta-text>App laden</a>
+      <a class="btn btn-secondary" href="#">Zur Beta anmelden</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOOTER ============= -->
+<footer>
+  <div class="wrap foot">
+    <a href="#" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="foot-links">
+      <a href="#">Impressum</a>
+      <a href="#privacy">Datenschutz</a>
+      <a href="FAQ.html">FAQ</a>
+      <a href="#">Kontakt</a>
+    </div>
+    <div class="muted">© 2026 Chronica</div>
+  </div>
+</footer>
+
+<!-- ============= TWEAKS ============= -->
+<div class="tweaks-panel" id="tweaks-panel" aria-hidden="true">
+  <h5>Tweaks</h5>
+  <div class="tweaks-row">
+    <label>Theme</label>
+    <div class="seg" id="tw-theme">
+      <button data-theme-val="light" class="on">Hell</button>
+      <button data-theme-val="dark">Dunkel</button>
+    </div>
+  </div>
+  <div class="tweaks-row">
+    <label>Akzentfarbe</label>
+    <div class="swatches" id="tw-swatch">
+      <button data-accent="#ef4444" data-hover="#dc2626" style="background:#ef4444" class="on" title="Rot"></button>
+      <button data-accent="#a855f7" data-hover="#9333ea" style="background:#a855f7" title="Lila"></button>
+      <button data-accent="#0ea5e9" data-hover="#0284c7" style="background:#0ea5e9" title="Blau"></button>
+      <button data-accent="#10b981" data-hover="#059669" style="background:#10b981" title="Grün"></button>
+      <button data-accent="#1f2937" data-hover="#111827" style="background:#1f2937" title="Schwarz"></button>
+    </div>
+  </div>
+  <div class="tweaks-row">
+    <label>Nav-CTA Text</label>
+    <input type="text" id="tw-cta" value="App laden" />
+  </div>
+  <div class="tweaks-row">
+    <label>Hero-Sprache</label>
+    <div class="seg" id="tw-hero">
+      <button data-hero="muster" class="on">Muster</button>
+      <button data-hero="begleiter">Begleiter</button>
+      <button data-hero="arzt">Für Arzt</button>
+    </div>
+  </div>
+  <div class="tweaks-row">
+    <label>Feature-Copy</label>
+    <div class="seg" id="tw-copy">
+      <button data-copy="text">Fließtext</button>
+      <button data-copy="haken">Hakenliste</button>
+    </div>
+  </div>
+</div>
+<script>
+  /* ---------------- TWEAKS / EDIT MODE ---------------- */
+  const TWEAK_DEFAULTS = {
+    "theme": "light",
+    "accent": "#ef4444",
+    "accentHover": "#dc2626",
+    "ctaText": "App laden",
+    "hero": "muster",
+    "copymode": "text"
+  };
+
+  const state = Object.assign({}, TWEAK_DEFAULTS);
+
+  const heroTexts = {
+    muster: {
+      eyebrow: "",
+      title: 'Dein täglicher Begleiter bei chronischen Schmerzen',
+      lede: ""
+    },
+    begleiter: {
+      eyebrow: "Dein täglicher Begleiter",
+      title: 'Schmerz ist <em>privat</em>.<br/>Dokumentation muss es auch sein.',
+      lede: "Chronica bleibt auf deinem Gerät. Keine Cloud-Pflicht, kein Tracking — nur dein Tagebuch und ein PDF, wenn du es brauchst."
+    },
+    arzt: {
+      eyebrow: "Fürs Arztgespräch gemacht",
+      title: 'Schluss mit<br/>„war das nicht <em>letzte Woche</em>?"',
+      lede: "Ein strukturierter Arztbericht in A4 — mit Kalender, Tagesprofil und Häufigkeiten. Drucken und mitnehmen."
+    }
+  };
+
+  function applyState() {
+    document.documentElement.setAttribute('data-theme', state.theme);
+    document.documentElement.style.setProperty('--accent', state.accent);
+    document.documentElement.style.setProperty('--accent-600', state.accentHover);
+
+    // derive tints from accent
+    document.documentElement.style.setProperty('--accent-100',
+      `color-mix(in oklab, ${state.accent} 22%, ${state.theme === 'dark' ? '#000' : '#fff'})`);
+    document.documentElement.style.setProperty('--accent-50',
+      `color-mix(in oklab, ${state.accent} 10%, ${state.theme === 'dark' ? '#000' : '#fff'})`);
+
+    document.body.setAttribute('data-copymode', state.copymode || 'text');
+
+    document.querySelectorAll('[data-cta-text]').forEach(el => { el.textContent = state.ctaText; });
+
+    const h = heroTexts[state.hero] || heroTexts.muster;
+    const eyebrow = document.querySelector('.hero .eyebrow');
+    if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span> ' + h.eyebrow;
+    const title = document.querySelector('.hero .title');
+    if (title) title.innerHTML = h.title;
+    const lede = document.querySelector('.hero .lede');
+    if (lede) lede.textContent = h.lede;
+
+    // tweaks UI reflection
+    document.querySelectorAll('#tw-theme button').forEach(b =>
+      b.classList.toggle('on', b.dataset.themeVal === state.theme));
+    document.querySelectorAll('#tw-swatch button').forEach(b =>
+      b.classList.toggle('on', b.dataset.accent === state.accent));
+    document.querySelectorAll('#tw-hero button').forEach(b =>
+      b.classList.toggle('on', b.dataset.hero === state.hero));
+    document.querySelectorAll('#tw-copy button').forEach(b =>
+      b.classList.toggle('on', b.dataset.copy === (state.copymode || 'text')));
+    const cta = document.getElementById('tw-cta');
+    if (cta) cta.value = state.ctaText;
+  }
+
+  function persist(edits) {
+    Object.assign(state, edits);
+    applyState();
+  }
+
+  // Tweaks interactions
+  document.querySelectorAll('#tw-theme button').forEach(b =>
+    b.addEventListener('click', () => persist({ theme: b.dataset.themeVal })));
+  document.querySelectorAll('#tw-swatch button').forEach(b =>
+    b.addEventListener('click', () => persist({ accent: b.dataset.accent, accentHover: b.dataset.hover })));
+  document.querySelectorAll('#tw-hero button').forEach(b =>
+    b.addEventListener('click', () => persist({ hero: b.dataset.hero })));
+  document.querySelectorAll('#tw-copy button').forEach(b =>
+    b.addEventListener('click', () => persist({ copymode: b.dataset.copy })));
+  document.getElementById('tw-cta').addEventListener('input', e =>
+    persist({ ctaText: e.target.value || 'App laden' }));
+
+  applyState();
+
+  /* ---------------- HEATMAP DATA ---------------- */
+  function makeCells(container, n, seed) {
+    const el = document.getElementById(container);
+    if (!el) return;
+    let s = seed;
+    function rand() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    for (let i = 0; i < n; i++) {
+      const r = rand();
+      let cls = '';
+      if (r < 0.38) cls = '';
+      else if (r < 0.58) cls = 'l1';
+      else if (r < 0.72) cls = 'l2';
+      else if (r < 0.82) cls = 'l3';
+      else if (r < 0.9)  cls = 'l4';
+      else if (r < 0.96) cls = 'l5';
+      else               cls = 'l6';
+      el.insertAdjacentHTML('beforeend', `<div class="hm-cell ${cls}"></div>`);
+    }
+  }
+  makeCells('hero-heatmap', 35, 42);
+  makeCells('hm-mar', 31, 103);
+  makeCells('hm-apr', 18, 77);
+  (() => {
+    const apr = document.getElementById('hm-apr');
+    if (apr && apr.lastChild) apr.lastChild.classList.add('today');
+  })();
+  makeCells('report-hm', 30, 205);
+
+  /* ---------------- PAIN CHART ---------------- */
+  (function drawChart() {
+    const svg = document.getElementById('pain-chart');
+    if (!svg) return;
+    const W = 460, H = 220;
+    const padL = 28, padR = 12, padT = 10, padB = 26;
+    const data = [2,2.4,3,3.2,3.8,4.2,4.8,5,5.4,5.6,6,6.4,6.8,7,7,7,7,6,4.2,3.2,3,3,3,3];
+
+    const x = i => padL + i * (W - padL - padR) / (data.length - 1);
+    const y = v => padT + (10 - v) * (H - padT - padB) / 10;
+
+    let grid = '';
+    for (let v = 0; v <= 10; v += 2) {
+      grid += `<line x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}" stroke="var(--border)" stroke-width="1"/>`;
+      grid += `<text x="${padL - 6}" y="${y(v) + 3}" text-anchor="end" font-size="10" fill="var(--text-4)" font-family="inherit">${v}</text>`;
+    }
+    [0, 6, 12, 18].forEach(h => {
+      grid += `<text x="${x(h)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="var(--text-4)">${String(h).padStart(2,'0')}:00</text>`;
+    });
+
+    let path = '';
+    data.forEach((v, i) => { path += (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(v).toFixed(1) + ' '; });
+    let dots = '';
+    data.forEach((v, i) => {
+      dots += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3" fill="var(--accent)"/>`;
+    });
+
+    svg.innerHTML = grid
+      + `<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;"/>`
+      + dots;
+  })();
+
+  /* ---------------- DAILY BARS ---------------- */
+  function makeDaily(id, heightPattern) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pattern = heightPattern || [0.2,0.15,0.12,0.15,0.2,0.28,0.4,0.55,0.7,0.75,0.8,0.78,0.82,0.78,0.7,0.78,0.72,0.55,0.48,0.4,0.38,0.3,0.25,0.22];
+    pattern.forEach((h, i) => {
+      const op = 0.4 + ((i * 37) % 100) / 200;
+      el.insertAdjacentHTML('beforeend',
+        `<b style="height:${Math.round(h * 100)}%; opacity:${op.toFixed(2)}"></b>`);
+    });
+  }
+  makeDaily('daily-bars');
+  makeDaily('report-daily');
+
+  /* WIZARD */
+  (function initWizard() {
+    const wz = document.getElementById('wizard');
+    if (!wz) return;
+    let step = 1;
+    const titles = { 1: 'Gesamtschmerz', 2: 'Ort', 3: 'Charakter', 4: 'Begleitsymptome' };
+    const scaleEl = document.getElementById('wz-scale');
+    scaleEl.addEventListener('click', e => {
+      const b = e.target.closest('button[data-v]');
+      if (!b) return;
+      scaleEl.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+    });
+    wz.querySelectorAll('[data-multi] .chip').forEach(c => c.addEventListener('click', () => c.classList.toggle('on')));
+    function render() {
+      wz.querySelectorAll('.wz-pane').forEach(p => p.hidden = +p.dataset.step !== step);
+      const prog = document.getElementById('wz-progress').children;
+      for (let i = 0; i < 4; i++) prog[i].classList.toggle('done', i < step);
+      document.getElementById('wz-step').textContent = Math.min(step, 4);
+      document.getElementById('wz-title').textContent = titles[step] || '';
+      const back = document.getElementById('wz-back');
+      const next = document.getElementById('wz-next');
+      if (step === 5) {
+        document.getElementById('wz-nav').style.gridTemplateColumns = '1fr';
+        back.style.display = 'none';
+        next.textContent = 'Nochmal durchgehen';
+      } else {
+        document.getElementById('wz-nav').style.gridTemplateColumns = '1fr 2fr';
+        back.style.display = '';
+        back.disabled = step === 1;
+        back.style.opacity = step === 1 ? 0.4 : 1;
+        next.textContent = step === 4 ? 'Speichern' : 'Weiter';
+      }
+    }
+    document.getElementById('wz-back').addEventListener('click', () => { if (step > 1 && step < 5) { step--; render(); } });
+    document.getElementById('wz-next').addEventListener('click', () => {
+      if (step === 5) {
+        step = 1;
+        scaleEl.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+        wz.querySelectorAll('[data-multi] .chip').forEach(c => c.classList.remove('on'));
+      } else if (step < 4) step++;
+      else step = 5;
+      render();
+    });
+    render();
+  })();
+
+  /* SECTION REVEAL */
+  (function initSectionReveal() {
+    const targets = document.querySelectorAll('section.feat, section.download');
+    targets.forEach(el => el.classList.add('reveal-section'));
+    const sio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          sio.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    targets.forEach(el => sio.observe(el));
+  })();
+
+  /* SCROLL ANIMATIONS */
+  (function initReveal() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.hm-cell').forEach((c, i) => {
+          c.style.opacity = '0'; c.style.transform = 'scale(0.6)';
+          c.style.transition = 'opacity 240ms ease, transform 240ms ease';
+          setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'scale(1)'; }, i * 12);
+        });
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.2 });
+    ['hero-heatmap', 'hm-mar', 'hm-apr', 'report-hm'].forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+    const chartIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const path = e.target.querySelector('path');
+        const dots = e.target.querySelectorAll('circle');
+        if (path) {
+          path.style.transition = 'stroke-dashoffset 1800ms cubic-bezier(.4,0,.2,1)';
+          requestAnimationFrame(() => { requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; }); });
+        }
+        dots.forEach((d) => { d.style.opacity = '0'; d.style.transition = 'opacity 300ms ease'; });
+        setTimeout(() => { dots.forEach(d => { d.style.opacity = '1'; }); }, 1500);
+        chartIO.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    const chart = document.getElementById('pain-chart'); if (chart) chartIO.observe(chart);
+
+    const barIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        if (e.target.classList.contains('statbars')) {
+          e.target.querySelectorAll('.statrow .bar > i').forEach((bar, i) => {
+            const w = bar.style.width || getComputedStyle(bar).width;
+            bar.style.width = '0%';
+            bar.style.transition = 'width 900ms cubic-bezier(.2,.8,.2,1)';
+            setTimeout(() => { bar.style.width = w; }, 80 + i * 60);
+          });
+        } else if (e.target.classList.contains('daily')) {
+          const bars = e.target.querySelectorAll('b');
+          bars.forEach((b) => {
+            b.dataset.h = b.style.height;
+            b.style.height = '0%';
+            b.style.transition = 'height 700ms cubic-bezier(.2,.8,.2,1)';
+          });
+          void e.target.offsetHeight;
+          bars.forEach((b, i) => {
+            setTimeout(() => { b.style.height = b.dataset.h; }, 50 + i * 35);
+          });
+        }
+        barIO.unobserve(e.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.statbars, .daily').forEach(el => barIO.observe(el));
+  })();
+</script>
+</body>
+</html>
