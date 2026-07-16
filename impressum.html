@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Impressum — Chronica</title>
+<style>
+  :root {
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --text-4: #9ca3af;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+    --accent: #ef4444;
+    --accent-600: #dc2626;
+    --accent-100: #fee2e2;
+    --accent-50: #fef2f2;
+    --radius-card: 16px;
+    --radius-btn: 12px;
+    --shadow-card: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.04);
+    --max: 1200px;
+    --pad: 24px;
+    --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Roboto, sans-serif;
+  }
+  html[data-theme="dark"] {
+    --bg: #000000;
+    --card: #111111;
+    --text: #ffffff;
+    --text-2: #e5e7eb;
+    --text-3: #9ca3af;
+    --text-4: #6b7280;
+    --border: #222222;
+    --border-light: #1a1a1a;
+    --accent-50: #1a0808;
+    --accent-100: #2a0d0d;
+    --shadow-card: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img, svg { display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; color: inherit;
+  }
+  .logo-mark { width: 28px; height: 28px; border-radius: 8px; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-3); }
+  .nav-links a { text-decoration: none; color: var(--text-3); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    padding: 9px 16px; border-radius: var(--radius-btn);
+    background: var(--accent); color: white; text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: background 120ms ease;
+  }
+  .nav-cta:hover { background: var(--accent-600); text-decoration: none; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header .breadcrumb {
+    font-size: 13px; color: var(--text-3); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .page-header .breadcrumb a { color: var(--text-3); text-decoration: none; }
+  .page-header .breadcrumb a:hover { color: var(--text); }
+  .page-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; letter-spacing: -0.025em;
+  }
+  .page-header .meta { font-size: 13px; color: var(--text-4); }
+
+  /* CONTENT */
+  .legal-content {
+    max-width: 720px;
+    padding: 56px 0 96px;
+  }
+  .legal-content h2 {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 48px 0 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+  }
+  .legal-content h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  .legal-content p {
+    color: var(--text-2); margin: 0 0 14px; font-size: 15px;
+  }
+  .legal-content a { color: var(--accent); }
+  .legal-content strong { color: var(--text); font-weight: 600; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 40px 0 56px; font-size: 13px; color: var(--text-3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .foot-links a { text-decoration: none; color: var(--text-3); }
+  .foot-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#preise">Preise</a>
+      <a href="index.html#privacy">Datenschutz</a>
+    </div>
+    <a class="nav-cta" href="index.html#download">App laden</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Chronica</a>
+      <span>›</span>
+      <span>Impressum</span>
+    </div>
+    <h1>Impressum</h1>
+    <div class="meta">Stand: Juni 2026</div>
+  </div>
+
+  <div class="legal-content">
+
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p>
+      Emil Kirchhoff<br/>
+      Wickuhl 43<br/>
+      53797 Lohmar<br/>
+      Deutschland
+    </p>
+
+    <h2>Kontakt</h2>
+    <p>E-Mail: <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a></p>
+
+    <h2>Umsatzsteuer</h2>
+    <p>Kleinunternehmer gemäß § 19 UStG. Es wird keine Umsatzsteuer ausgewiesen.</p>
+    <p>Eine Umsatzsteuer-Identifikationsnummer nach § 27a UStG ist beantragt und wird nach Erteilung hier ergänzt.</p>
+
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p>
+      Emil Kirchhoff<br/>
+      Wickuhl 43<br/>
+      53797 Lohmar
+    </p>
+
+    <h2>EU-Streitschlichtung</h2>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a></p>
+    <p>Unsere E-Mail-Adresse findest du oben im Impressum.</p>
+
+    <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+    <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+    <h2>Haftung für Inhalte</h2>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte in dieser App nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+    <h2>Haftung für Links</h2>
+    <p>Unsere App enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+
+    <h2>Urheberrecht</h2>
+    <p>Die durch den Betreiber erstellten Inhalte und Werke in dieser App unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des Betreibers.</p>
+
+    <h2>Hinweis zu Gesundheitsdaten</h2>
+    <p>Chronica ist kein zugelassenes Medizinprodukt und ersetzt keine ärztliche Beratung, Diagnose oder Behandlung.</p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <a href="index.html" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="foot-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="mailto:orga@chronica-app.com">Kontakt</a>
+    </div>
+    <div style="color: var(--text-4);">© 2026 Chronica</div>
+  </div>
+</footer>
+
+</body>
+</html>

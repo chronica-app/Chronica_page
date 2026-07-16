@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Datenschutzerklärung — Chronica</title>
+<style>
+  :root {
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --text-4: #9ca3af;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+    --accent: #ef4444;
+    --accent-600: #dc2626;
+    --accent-100: #fee2e2;
+    --accent-50: #fef2f2;
+    --radius-card: 16px;
+    --radius-btn: 12px;
+    --shadow-card: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.04);
+    --max: 1200px;
+    --pad: 24px;
+    --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Roboto, sans-serif;
+  }
+  html[data-theme="dark"] {
+    --bg: #000000;
+    --card: #111111;
+    --text: #ffffff;
+    --text-2: #e5e7eb;
+    --text-3: #9ca3af;
+    --text-4: #6b7280;
+    --border: #222222;
+    --border-light: #1a1a1a;
+    --accent-50: #1a0808;
+    --accent-100: #2a0d0d;
+    --shadow-card: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img, svg { display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; color: inherit;
+  }
+  .logo-mark { width: 28px; height: 28px; border-radius: 8px; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-3); }
+  .nav-links a { text-decoration: none; color: var(--text-3); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    padding: 9px 16px; border-radius: var(--radius-btn);
+    background: var(--accent); color: white; text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: background 120ms ease;
+  }
+  .nav-cta:hover { background: var(--accent-600); text-decoration: none; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header .breadcrumb {
+    font-size: 13px; color: var(--text-3); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .page-header .breadcrumb a { color: var(--text-3); text-decoration: none; }
+  .page-header .breadcrumb a:hover { color: var(--text); }
+  .page-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; letter-spacing: -0.025em;
+  }
+  .page-header .meta { font-size: 13px; color: var(--text-4); }
+
+  /* CONTENT */
+  .legal-content {
+    max-width: 720px;
+    padding: 56px 0 96px;
+  }
+  .legal-content h2 {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 48px 0 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+  }
+  .legal-content h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  .legal-content p { color: var(--text-2); margin: 0 0 14px; font-size: 15px; }
+  .legal-content ul {
+    margin: 0 0 14px; padding-left: 0;
+    list-style: none;
+    display: grid; gap: 6px;
+  }
+  .legal-content ul li {
+    font-size: 15px; color: var(--text-2);
+    display: flex; gap: 10px; align-items: baseline;
+  }
+  .legal-content ul li::before {
+    content: "–";
+    color: var(--text-4);
+    flex-shrink: 0;
+  }
+  .legal-content a { color: var(--accent); }
+  .legal-content strong { color: var(--text); font-weight: 600; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 40px 0 56px; font-size: 13px; color: var(--text-3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .foot-links a { text-decoration: none; color: var(--text-3); }
+  .foot-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#preise">Preise</a>
+      <a href="index.html#privacy">Datenschutz</a>
+    </div>
+    <a class="nav-cta" href="index.html#download">App laden</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Chronica</a>
+      <span>›</span>
+      <span>Datenschutzerklärung</span>
+    </div>
+    <h1>Datenschutzerklärung</h1>
+    <div class="meta">Stand: Juni 2026</div>
+  </div>
+
+  <div class="legal-content">
+
+    <h2>1. Welche Daten wir verarbeiten</h2>
+    <p><strong>Zugangsdaten</strong><br/>
+    Deine E-Mail-Adresse wird bei der Registrierung angegeben und dient der Anmeldung sowie — sofern du eingewilligt hast — dem Versand von App-Neuigkeiten.</p>
+
+    <p><strong>Gesundheitsdaten (Art. 9 DSGVO)</strong><br/>
+    Mit deiner ausdrücklichen Einwilligung verarbeitet Chronica folgende Gesundheitsdaten:</p>
+    <ul>
+      <li>Schmerzkurven (stündliche Intensitätswerte 0–10)</li>
+      <li>Schmerzort, Schmerzcharakter, Begleitsymptome</li>
+      <li>Medikamentenprotokoll</li>
+      <li>Täglicher Gesamtschmerzwert</li>
+    </ul>
+    <p>Diese Daten dienen ausschließlich deinem persönlichen Schmerztagebuch. Eine Auswertung durch uns findet nicht statt.</p>
+
+    <p><strong>Einstellungen</strong><br/>
+    Kategorieauswahl, individuelle Optionen und Theme werden zur Personalisierung gespeichert.</p>
+
+    <p><strong>Technische Metadaten</strong><br/>
+    Sitzungstoken und Zeitstempel werden automatisch für den sicheren App-Betrieb erzeugt.</p>
+
+    <p><strong>Newsletter und App-Neuigkeiten</strong><br/>
+    Wenn du den Newsletter abonnierst, speichern wir deine E-Mail-Adresse ausschließlich für diesen Zweck. Die Einwilligung kann jederzeit widerrufen werden (Abmeldelink in jeder E-Mail oder per Kontaktaufnahme).</p>
+
+    <h2>2. Rechtsgrundlagen</h2>
+    <ul>
+      <li>E-Mail-Adresse, Sitzungstoken: Art. 6(1)b DSGVO (Vertragserfüllung)</li>
+      <li>Gesundheitsdaten: Art. 9(2)a DSGVO (ausdrückliche Einwilligung)</li>
+      <li>Technische Metadaten: Art. 6(1)f DSGVO (berechtigtes Interesse am sicheren Betrieb)</li>
+      <li>Newsletter: Art. 6(1)a DSGVO (freiwillige Einwilligung, getrennt von der App-Nutzung)</li>
+    </ul>
+
+    <h2>3. Speicherdauer</h2>
+    <p>Alle Daten werden gespeichert, solange dein Konto aktiv ist. Nach Konto-Löschung werden alle personenbezogenen Daten dauerhaft gelöscht.</p>
+    <p>Newsletter-Abonnements werden nach Widerruf der Einwilligung unverzüglich aus dem Verteiler entfernt.</p>
+
+    <h2>4. Weitergabe an Dritte</h2>
+    <p><strong>Supabase (EU-Region)</strong><br/>
+    Supabase wird als Auftragsverarbeiter für Datenbankhosting und Authentifizierung eingesetzt. Die Daten werden in der EU verarbeitet (Frankfurt, Deutschland). Ein Auftragsverarbeitungsvertrag nach Art. 28 DSGVO ist abgeschlossen. Supabase ist rechtlich in Singapur ansässig; Grundlage für etwaige Drittlandübermittlungen sind Standardvertragsklauseln (Art. 46(2)c DSGVO).</p>
+
+    <p><strong>E-Mail-Dienstleister (nur bei Newsletter-Einwilligung)</strong><br/>
+    Für den Versand von App-Neuigkeiten setzen wir einen E-Mail-Versanddienstleister ein. Dabei wird deine E-Mail-Adresse an diesen Dienstleister übermittelt. Ein Auftragsverarbeitungsvertrag nach Art. 28 DSGVO ist abgeschlossen. Der konkrete Dienstleister wird hier benannt, sobald der Newsletter-Versand aktiviert ist.</p>
+
+    <p>Deine Gesundheitsdaten werden nicht an Werbetreibende, Versicherungen oder sonstige Dritte weitergegeben und nicht verkauft.</p>
+
+    <h2>5. Deine Rechte</h2>
+    <p>Du hast jederzeit das Recht auf:</p>
+    <ul>
+      <li><strong>Auskunft</strong> über deine gespeicherten Daten (Art. 15)</li>
+      <li><strong>Berichtigung</strong> unrichtiger Daten (Art. 16)</li>
+      <li><strong>Löschung</strong> deines Kontos und aller Daten (Art. 17) — über Einstellungen → Account</li>
+      <li><strong>Einschränkung</strong> der Verarbeitung (Art. 18)</li>
+      <li><strong>Datenübertragbarkeit</strong> (Art. 20) — Export als Markdown oder PDF über Einstellungen</li>
+      <li><strong>Widerspruch</strong> (Art. 21)</li>
+      <li><strong>Widerruf</strong> deiner Einwilligung zur Verarbeitung von Gesundheitsdaten (Art. 7(3)) — durch Konto-Löschung</li>
+      <li><strong>Widerruf</strong> deiner Newsletter-Einwilligung — per Abmeldelink oder E-Mail</li>
+    </ul>
+    <p>Kontakt: <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a></p>
+
+    <h2>6. Beschwerderecht</h2>
+    <p>Du kannst dich bei der zuständigen Aufsichtsbehörde beschweren:</p>
+    <p>
+      Landesbeauftragte für Datenschutz und Informationsfreiheit NRW (LDI NRW)<br/>
+      Postfach 20 04 44, 40102 Düsseldorf<br/>
+      <a href="https://www.ldi.nrw.de" target="_blank" rel="noopener">www.ldi.nrw.de</a>
+    </p>
+
+    <h2>7. Freiwilligkeit</h2>
+    <p>Die Nutzung von Chronica ist freiwillig. Gesundheitsdaten werden nur auf deine Initiative hin eingetragen. Die Newsletter-Einwilligung ist von der App-Nutzung vollständig getrennt — eine Ablehnung hat keine Auswirkung auf die App-Funktionalität.</p>
+
+    <h2>8. Keine automatisierte Entscheidungsfindung</h2>
+    <p>Es findet kein Profiling und keine automatisierte Entscheidungsfindung statt (Art. 22 DSGVO). Alle Statistiken werden ausschließlich für deine persönliche Übersicht berechnet.</p>
+
+    <h2>9. Sicherheit</h2>
+    <p>Alle Daten werden verschlüsselt übertragen (HTTPS/TLS). Row Level Security (RLS) stellt sicher, dass du ausschließlich auf deine eigenen Daten zugreifen kannst. Einwilligungen werden mit Zeitstempel und Versionsstand dokumentiert.</p>
+
+    <h2>10. Kein Medizinprodukt</h2>
+    <p>Chronica ist kein zugelassenes Medizinprodukt und ersetzt keine ärztliche Beratung, Diagnose oder Behandlung.</p>
+
+    <h2>11. Verantwortliche Stelle</h2>
+    <p>
+      Emil Kirchhoff<br/>
+      Wickuhl 43<br/>
+      53797 Lohmar<br/>
+      Deutschland<br/>
+      E-Mail: <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a>
+    </p>
+
+    <h2>12. Änderungen dieser Datenschutzerklärung</h2>
+    <p>Bei wesentlichen Änderungen werden registrierte Nutzer per E-Mail informiert. Die jeweils aktuelle Version ist in der App unter Einstellungen → Rechtliches einsehbar. Der Versionsstand ist oben angegeben.</p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <a href="index.html" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="foot-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="mailto:orga@chronica-app.com">Kontakt</a>
+    </div>
+    <div style="color: var(--text-4);">© 2026 Chronica</div>
+  </div>
+</footer>
+
+</body>
+</html>

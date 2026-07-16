@@ -104,100 +104,8 @@
     .nav-links { display: none; }
   }
 
-  /* ---------- HERO — VARIANT B-G3: AURA BEHIND PHONE ---------- */
-  .hero { padding: 32px 0 80px; position: relative; overflow: hidden; }
-  .hero-glow { display: none; }
-  .hero-grid { position: relative; z-index: 1; align-items: center; }
-
-  /* Phone frame */
-  .phone-wrap {
-    display: flex; justify-content: center; align-items: center;
-    perspective: 1400px;
-    position: relative;
-  }
-  .phone-wrap::before {
-    content: '';
-    position: absolute;
-    width: 100%; height: 100%;
-    max-width: 480px; max-height: 600px;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(239,68,68,0.32);
-    filter: blur(110px);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: aura-breathe 6s ease-in-out infinite;
-    z-index: 0;
-  }
-  @keyframes aura-breathe {
-    0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-    50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
-  }
-  .phone-wrap > .phone { position: relative; z-index: 1; }
-  .phone {
-    width: 320px; aspect-ratio: 320 / 660;
-    background: #111;
-    border-radius: 44px;
-    padding: 14px;
-    box-shadow:
-      0 0 0 2px #2a2a2a inset,
-      0 30px 60px -10px rgba(0,0,0,0.35),
-      0 18px 36px -18px rgba(239,68,68,0.4);
-    transform: rotate(-4deg) rotateY(-6deg) rotateX(3deg);
-    transition: transform 600ms cubic-bezier(.2,.8,.2,1);
-    position: relative;
-  }
-  .phone:hover { transform: rotate(-2deg) rotateY(-3deg) rotateX(1deg); }
-  .phone::before {
-    /* notch */
-    content: '';
-    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-    width: 96px; height: 22px; background: #111;
-    border-radius: 0 0 14px 14px;
-    z-index: 2;
-  }
-  .phone-screen {
-    width: 100%; height: 100%;
-    background: var(--bg);
-    border-radius: 32px;
-    padding: 36px 18px 24px;
-    overflow: hidden;
-    position: relative;
-  }
-  .phone-screen .ps-label {
-    font-size: 10px; color: var(--text-3);
-    text-transform: uppercase; letter-spacing: 0.1em;
-    margin-bottom: 4px;
-  }
-  .phone-screen .ps-title {
-    font-size: 16px; font-weight: 700; margin: 0 0 14px;
-  }
-  .phone-screen .ps-title .muted { color: var(--text-3); font-weight: 500; font-size: 12px; }
-  .phone-screen .ps-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-  .phone-screen .ps-grid .hm-cell { border-radius: 4px; }
-  .phone-screen .ps-legend {
-    margin-top: 14px; display: flex; align-items: center; justify-content: space-between;
-    font-size: 10px; color: var(--text-3);
-  }
-  .phone-screen .ps-legend .scale { display: flex; gap: 3px; }
-  .phone-screen .ps-legend .scale i { width: 10px; height: 10px; border-radius: 2px; }
-  .phone-screen .ps-tabs {
-    position: absolute; left: 18px; right: 18px; bottom: 18px;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 6px;
-    font-size: 10px; color: var(--text-3); text-align: center; font-weight: 600;
-  }
-  .phone-screen .ps-tabs span { padding: 6px 0; border-radius: 8px; }
-  .phone-screen .ps-tabs span.on { background: var(--accent); color: white; }
-
-  @media (max-width: 900px) {
-    .phone { width: 260px; transform: none; }
-    .phone:hover { transform: none; }
-    .hero-grid > div:first-child { text-align: center; }
-    .hero-ctas { justify-content: center; }
-  }
+  /* ---------- HERO ---------- */
+  .hero { padding: 32px 0 80px; position: relative; }
   .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -246,20 +154,30 @@
   .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
   .hero-meta svg { width: 14px; height: 14px; }
 
-  /* hero visual: a composed app-like card */
+  .hero-trust { margin-top: 14px; font-size: 13px; color: var(--text-3); }
+
+  /* hero visual: plain screenshot, no device frame */
   .hero-visual {
     position: relative;
+    display: flex; justify-content: center;
   }
-  .hero-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 24px; padding: 24px;
-    box-shadow: var(--shadow-hover);
+  .hero-shot {
+    width: 100%; max-width: 300px;
+    aspect-ratio: 1170 / 2391;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    background: var(--card);
   }
-  .hero-card h3 { margin: 0 0 4px; font-size: 15px; font-weight: 700; }
-  .hero-card .sub { font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+  .hero-shot img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    display: block;
+  }
 
   /* ---------- SECTION BASE ---------- */
-  section { padding: 96px 0; }
+  section { padding: 72px 0; }
   .section-title {
     font-size: clamp(28px, 3.2vw, 44px);
     letter-spacing: -0.025em;
@@ -490,6 +408,39 @@
   .faq-item[open] summary::after { transform: rotate(45deg); }
   .faq-item .a { padding: 0 0 20px; color: var(--text-3); font-size: 15px; max-width: 64ch; text-wrap: pretty; }
 
+  /* ---- Preise ---- */
+  .price { border-top: 1px solid var(--border); }
+  .price-head { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+  .price-head .section-lede { margin-left: auto; margin-right: auto; }
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+  .price-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px 24px;
+    box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .price-card.featured {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-hover);
+  }
+  .price-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
+    padding: 5px 14px; border-radius: 999px; white-space: nowrap;
+  }
+  .price-name { font-size: 15px; font-weight: 700; color: var(--text-2); }
+  .price-amount { margin: 10px 0 2px; font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  .price-amount .per { font-size: 15px; font-weight: 500; color: var(--text-3); }
+  .price-note { font-size: 13px; color: var(--text-3); min-height: 20px; }
+  .price-trial { margin: 16px 0 0; font-size: 13px; color: var(--accent-600); font-weight: 600; }
+  .price-foot { text-align: center; font-size: 13px; color: var(--text-3); margin: 28px auto 0; max-width: 60ch; text-wrap: pretty; }
+
+  @media (max-width: 760px) {
+    .price-grid { grid-template-columns: 1fr; }
+  }
+
   /* ---- Privacy ---- */
   .priv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
   .priv-card {
@@ -533,47 +484,80 @@
     .reveal-section { opacity: 1; transform: none; transition: none; }
   }
 
-  /* ---- feat-list / feat-copy toggle ---- */
-  body[data-copymode="text"] .feat-list { display: none; }
-  body[data-copymode="haken"] .feat-copy { display: none; }
-
-  /* ---- Tweaks panel ---- */
-  .tweaks-panel {
-    position: fixed; right: 20px; bottom: 20px; z-index: 100;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 14px;
-    box-shadow: var(--shadow-hover);
-    width: 260px; display: none;
-    font-size: 13px;
-  }
-  .tweaks-panel.open { display: block; }
-  .tweaks-panel h5 { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
-  .tweaks-row { display: grid; gap: 6px; margin-bottom: 14px; }
-  .tweaks-row label { font-weight: 600; color: var(--text); }
-  .tweaks-row .sub { color: var(--text-3); font-size: 11px; }
-  .tweaks-row .seg { font-size: 12px; }
-  .tweaks-row input[type="text"] {
-    width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border);
-    background: var(--card); color: var(--text); font: inherit; font-size: 13px;
-  }
-  .swatches { display: flex; gap: 6px; flex-wrap: wrap; }
-  .swatches button {
-    width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border);
-    cursor: pointer; padding: 0;
-  }
-  .swatches button.on { border-color: var(--text); }
-
   /* responsive */
   @media (max-width: 900px) {
     section { padding: 72px 0; }
-    .hero-grid, .problem-grid, .feat-row, .priv-grid { grid-template-columns: 1fr; gap: 40px; }
-    .feat-row.reverse .feat-text { order: 0; }
+    .hero-grid, .priv-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-grid > div:first-child { text-align: center; }
+    .hero-ctas { justify-content: center; }
     .priv-grid { grid-template-columns: 1fr; }
   }
 
   /* tiny helpers */
   .muted { color: var(--text-3); }
   .center { text-align: center; }
+
+  /* ---------- BENTO GRID ---------- */
+  .bento-head { text-align: center; max-width: 680px; margin: 0 auto 40px; }
+  .bento-head .section-lede { margin-left: auto; margin-right: auto; }
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .b-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px;
+    box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; min-width: 0;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .b-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: color-mix(in oklab, var(--accent) 30%, var(--border));
+  }
+  .b-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .b-card h3 { margin: 8px 0 4px; font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
+  .b-card .b-sub { margin: 0 0 18px; font-size: 14px; color: var(--text-3); text-wrap: pretty; }
+  .b-visual { margin-top: auto; }
+
+  /* detail crops from screenshots */
+  .crop-card { border-radius: 14px; border: 1px solid var(--border); overflow: hidden; background: var(--card); box-shadow: 0 10px 28px rgba(17,24,39,.07); margin-left: auto; margin-right: auto; }
+  html[data-theme="dark"] .crop-card { box-shadow: 0 10px 28px rgba(0,0,0,.45); }
+  .crop-card img { width: 100%; height: auto; display: block; }
+  .b-curve .crop-card { max-width: 100%; }
+  .b-curve .b-visual { margin-top: 0; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+
+  .b-curve   { grid-column: span 3; grid-row: span 2; }
+  .b-stats   { grid-column: span 3; }
+  .b-report  { grid-column: span 3; }
+
+  /* steps */
+  .steps { counter-reset: st; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .steps li {
+    counter-increment: st; display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--text-2); font-weight: 500;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 999px; padding: 6px 14px 6px 6px;
+  }
+  .steps li::before {
+    content: counter(st); width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent-100); color: var(--accent);
+    font-size: 11px; font-weight: 700; display: grid; place-items: center; flex: 0 0 auto;
+  }
+  .steps li.fin { background: color-mix(in oklab, var(--accent) 12%, var(--card)); border-color: color-mix(in oklab, var(--accent) 30%, transparent); color: var(--accent); }
+
+  /* report mini */
+  .rm-top { display: flex; gap: 14px; align-items: center; }
+  .rm-ico { width: 44px; height: 54px; border-radius: 7px; background: var(--accent-50); border: 1px solid var(--border); display: grid; place-items: center; color: var(--accent); flex: 0 0 auto; }
+  .rm-ico svg { width: 22px; height: 22px; }
+  .rm-name { font-weight: 700; font-size: 15px; }
+  .rm-meta { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+  @media (max-width: 980px) {
+    .bento { grid-template-columns: 1fr 1fr; }
+    .b-curve, .b-stats, .b-report { grid-column: span 1; grid-row: auto; }
+  }
+  @media (max-width: 560px) {
+    .bento { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -587,313 +571,132 @@
     </a>
     <div class="nav-links">
       <a href="#features">Features</a>
-      <a href="#report">Arztbericht</a>
+      <a href="#preise">Preise</a>
       <a href="#privacy">Datenschutz</a>
-      <a href="FAQ.html">FAQ</a>
     </div>
-    <a class="nav-cta" href="#download" data-cta-text>App laden</a>
+    <a class="nav-cta" href="#download">App laden</a>
   </div>
 </nav>
 
 <!-- ============= HERO ============= -->
 <section class="hero">
-  <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div>
       <h1 class="title">Dein täglicher Begleiter bei chronischen Schmerzen</h1>
+      <p class="lede">Chronica ist ein digitales Schmerztagebuch für Migräne, Endometriose &amp; andere chronische Erkrankungen. Schmerzverlauf erfassen, Muster erkennen, fertigen Arztbericht mitnehmen.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#download">Jetzt 30 Tage kostenlos testen</a>
+      </div>
+      <p class="hero-trust">Danach ab 3,00 €/Monat. Jederzeit kündbar.</p>
     </div>
 
-    <!-- Hero visual: phone mockup -->
-    <div class="hero-visual phone-wrap">
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="ps-label">ÜBERSICHT</div>
-          <h3 class="ps-title">Kopf <span class="muted">· 30 Tage</span></h3>
-          <div id="hero-heatmap" class="ps-grid"></div>
-          <div class="ps-legend">
-            <span>wenig</span>
-            <div class="scale">
-              <i class="hm-cell"></i><i class="hm-cell l1"></i><i class="hm-cell l2"></i><i class="hm-cell l3"></i><i class="hm-cell l4"></i><i class="hm-cell l5"></i>
-            </div>
-            <span>viel</span>
-          </div>
-          <div class="ps-tabs">
-            <span class="on">Heute</span><span>Übersicht</span><span>Stats</span><span>Mehr</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- legacy hero-card (hidden via display:none below) -->
-    <div style="display:none;">
-      <div class="hero-card">
-        <div style="display:flex; justify-content: space-between; align-items:center; margin-top:14px; font-size:12px; color: var(--text-3);">
-          <span>wenig</span>
-          <div style="display:flex; gap:4px;">
-            <i class="hm-cell" style="width:14px;height:14px;"></i>
-            <i class="hm-cell l1" style="width:14px;height:14px;"></i>
-            <i class="hm-cell l2" style="width:14px;height:14px;"></i>
-            <i class="hm-cell l3" style="width:14px;height:14px;"></i>
-            <i class="hm-cell l4" style="width:14px;height:14px;"></i>
-            <i class="hm-cell l5" style="width:14px;height:14px;"></i>
-          </div>
-          <span>viel</span>
-        </div>
+    <!-- Hero visual: simple screenshot -->
+    <div class="hero-visual">
+      <div class="hero-shot">
+        <img src="bilder/uebersicht_clean.png" alt="Chronica Übersicht — Heatmap und Medikamente" width="1170" height="2391" />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============= PROBLEM ============= -->
-<section class="problem" id="warum">
-  <div class="wrap">
-    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-      <span class="section-eyebrow">Warum Chronica</span>
-      <p class="problem-quote" style="font-size: clamp(26px, 2.6vw, 38px); margin: 8px 0 0;">
-        „Wann hatten Sie das letzte Mal Kopfschmerzen?" — eine einfache Frage.
-        <span class="hl">Aber die ehrliche Antwort steckt in Mustern, nicht in Erinnerungen.</span>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============= FEATURE 1 — ÜBERSICHT (Heatmap) ============= -->
+<!-- ============= BENTO — FEATURES ============= -->
 <section class="feat" id="features">
-  <div class="wrap feat-row">
-    <div class="feat-text">
-      <span class="section-eyebrow">Übersicht</span>
-      <h2 class="section-title">Monate auf einen Blick — als Heatmap.</h2>
-      <ul class="feat-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Alle Monate seit deinem ersten Eintrag — vertikal gescrollt.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Heute immer markiert, Tag antippen öffnet den Tagesdetail.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Pro Kategorie eine eigene Heatmap — Kopf, Unterbauch, oder eigene.</li>
-      </ul>
+  <div class="wrap">
+    <div class="bento-head">
+      <h2 class="section-title">Alles drin, was du brauchst.</h2>
     </div>
 
-    <!-- Heatmap module -->
-    <div class="module" aria-label="Kalender-Heatmap">
-      <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 18px;">
-        <div>
-          <div style="font-size:12px; color: var(--text-3); letter-spacing:0.08em;">KOPF</div>
-          <div class="year">2026</div>
-        </div>
-        <div class="seg" style="width:auto;">
-          <button class="on">Kopf</button>
-          <button>Unterbauch</button>
-        </div>
-      </div>
-      <div class="heatmap">
-        <div class="hm-month">
-          <div class="mo">März</div>
-          <div class="hm-grid" id="hm-mar"></div>
-        </div>
-        <div class="hm-month">
-          <div class="mo">April</div>
-          <div class="hm-grid" id="hm-apr"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="bento">
 
-<!-- ============= FEATURE 2 — HEUTE (Chart) ============= -->
-<section class="feat">
-  <div class="wrap feat-row reverse">
-    <div class="feat-text">
-      <span class="section-eyebrow">Heute</span>
-      <h2 class="section-title">Zeichne deinen Tag — mit dem Finger.</h2>
-      <ul class="feat-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Stundengenaue Kurve, 0 bis 10.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Vergangene Tage nachtragen — mit Pfeilnavigation.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Neu zeichnen jederzeit, nichts ist in Stein gemeißelt.</li>
-      </ul>
-    </div>
+      <!-- Schmerzkurve (inkl. Abend-Check-in) -->
+      <div class="b-card b-curve">
+        <span class="b-eyebrow">Schmerzkurve</span>
+        <h3>Zeichne deinen Tag — mit dem Finger</h3>
+        <p class="b-sub">Stundengenau von 0 bis 10, über die vollen 24 Stunden — der echte Verlauf statt eines einzelnen Werts pro Tag. Im schnellen Abend-Check-in ergänzt du Ort, Symptome &amp; Medikamente in Sekunden.</p>
+        <div class="b-visual">
+          <div class="crop-card">
+            <img src="bilder/crops/kurve_neu.jpg" alt="Handgezeichnete Schmerzkurve über 24 Stunden" />
+          </div>
+        </div>
+      </div>
 
-    <div class="module" aria-label="Schmerzkurve">
-      <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 16px;">
-        <div>
-          <div style="font-size:12px; color: var(--text-3); letter-spacing:0.08em;">TAGESVERLAUF</div>
-          <div style="font-size:17px; font-weight:700; margin-top:2px;">Heute</div>
+      <!-- Statistik -->
+      <div class="b-card b-stats">
+        <span class="b-eyebrow">Statistik</span>
+        <h3>Aus Einträgen wird ein Muster</h3>
+        <p class="b-sub">Häufigkeiten, sortiert nach Stärke — bereit fürs Arztgespräch.</p>
+        <div class="b-visual">
+          <div class="statbars">
+            <div class="statrow"><span class="lbl">Schläfen</span><span class="bar"><i style="width:100%"></i></span><span class="n">10</span></div>
+            <div class="statrow"><span class="lbl">Stirn</span><span class="bar"><i style="width:70%"></i></span><span class="n">7</span></div>
+            <div class="statrow"><span class="lbl">Ganzer Kopf</span><span class="bar"><i style="width:70%"></i></span><span class="n">7</span></div>
+            <div class="statrow"><span class="lbl">Hinterkopf</span><span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
+          </div>
         </div>
-        <div class="seg" style="width:auto;">
-          <button class="on">Kopf</button>
-          <button>Unterbauch</button>
+      </div>
+
+      <!-- Arztbericht -->
+      <div class="b-card b-report" id="report">
+        <span class="b-eyebrow">Arztbericht</span>
+        <h3>Ein Klick zum PDF</h3>
+        <p class="b-sub">Exportiere deine Schmerzdaten als druckreifen Bericht — fertig für die Sprechstunde.</p>
+        <div class="b-visual">
+          <div class="rm-top">
+            <div class="rm-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>
+            </div>
+            <div>
+              <div class="rm-name">Schmerzbericht als PDF</div>
+              <div class="rm-meta">30-Tage-Kurve, Heatmap &amp; Häufigkeiten</div>
+            </div>
+          </div>
+          <div class="chip-row" style="margin-top:16px;">
+            <span class="chip on">PDF exportieren</span>
+          </div>
         </div>
       </div>
-      <div class="chart-label">Zeichne mit dem Finger den Schmerzverlauf (0 = kein Schmerz, 10 = maximum).</div>
-      <div class="chart-wrap">
-        <svg class="chart-svg" viewBox="0 0 460 220" preserveAspectRatio="none" id="pain-chart"></svg>
-      </div>
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:16px;">
-        <button class="btn btn-secondary" style="padding:12px; justify-content:center;">Neu zeichnen</button>
-        <button class="btn btn-primary" style="padding:12px; justify-content:center;">Speichern</button>
-      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ============= FEATURE 3 — ABEND (Wizard) ============= -->
-<section class="feat">
-  <div class="wrap feat-row">
-    <div class="feat-text">
-      <span class="section-eyebrow">Abend-Check-in</span>
-      <h2 class="section-title">Vier Schritte, mehr nicht.</h2>
-      <ul class="feat-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Alles ist Mehrfachauswahl — echt, nicht vereinfacht.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Eigene Symptome hinzufügen und wieder löschen.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Fertig? Ein großes grünes Häkchen — und Ruhe.</li>
-      </ul>
+<!-- ============= PREISE ============= -->
+<section class="price feat" id="preise">
+  <div class="wrap">
+    <div class="price-head">
+      <span class="section-eyebrow">Preise</span>
+      <h2 class="section-title">Ein Preis. Voller Funktionsumfang.</h2>
+      <p class="section-lede">30 Tage kostenlos testen — voller Funktionsumfang, jederzeit kündbar.</p>
     </div>
 
-    <!-- Wizard (interactive) -->
-    <div class="module" id="wizard">
-      <div style="font-size:13px; font-weight:700; margin-bottom:12px;">Abend-Eintrag</div>
-      <div class="seg">
-        <button class="on">Kopf</button>
-        <button>Unterbauch</button>
-      </div>
-      <div class="progress" id="wz-progress"><span></span><span></span><span></span><span></span></div>
-      <div style="font-size:11px; color: var(--text-3); letter-spacing:0.1em;">SCHRITT <span id="wz-step">1</span> VON 4</div>
-      <div style="font-size:18px; font-weight:700; margin:4px 0 14px;" id="wz-title">Gesamtschmerz</div>
-
-      <div class="wz-pane" data-step="1">
-        <div class="scale" id="wz-scale">
-          <button data-v="0">0</button><button data-v="1">1</button><button data-v="2">2</button>
-          <button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button>
-          <button data-v="6">6</button><button data-v="7">7</button><button data-v="8">8</button>
-          <button data-v="9">9</button><button data-v="10">10</button>
-        </div>
-        <div style="font-size:12px; color: var(--text-3); margin-top:10px;">0 = kein Schmerz · 10 = maximum</div>
+    <div class="price-grid">
+      <!-- Monatlich -->
+      <div class="price-card">
+        <div class="price-name">Monatlich</div>
+        <div class="price-amount">3,99 €<span class="per"> / Monat</span></div>
+        <div class="price-note">Flexibel — monatlich zahlen.</div>
+        <div class="price-trial">30 Tage kostenlos testen</div>
       </div>
 
-      <div class="wz-pane" data-step="2" hidden>
-        <div class="chip-row" data-multi>
-          <span class="chip">Stirn</span><span class="chip">Hinterkopf</span><span class="chip">Schläfen</span><span class="chip">Ganzer Kopf</span><span class="chip">Nacken</span>
-        </div>
+      <!-- 6 Monate -->
+      <div class="price-card featured">
+        <span class="price-badge">Beliebteste Wahl</span>
+        <div class="price-name">6 Monate</div>
+        <div class="price-amount">17,99 €<span class="per"> / 6 Monate</span></div>
+        <div class="price-note">Entspricht 3,00 €/Monat · −25 %</div>
+        <div class="price-trial">30 Tage kostenlos testen</div>
       </div>
 
-      <div class="wz-pane" data-step="3" hidden>
-        <div class="chip-row" data-multi>
-          <span class="chip">Pulsierend / stechend</span><span class="chip">Dumpf / drückend</span><span class="chip">Ziehend</span><span class="chip">Brennend</span>
-        </div>
-      </div>
-
-      <div class="wz-pane" data-step="4" hidden>
-        <div class="chip-row" data-multi>
-          <span class="chip">Übelkeit</span><span class="chip">Lichtempfindlichkeit</span><span class="chip">Müdigkeit</span><span class="chip">Schwindel</span><span class="chip">Geräuschempfindlichkeit</span>
-        </div>
-      </div>
-
-      <div class="wz-pane confirm" data-step="5" hidden style="padding: 28px 0 8px;">
-        <div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></div>
-        <h4>Kopf-Eintrag gespeichert</h4>
-        <p>Alle Fragen für Kopf wurden beantwortet.</p>
-      </div>
-
-      <div style="display:grid; grid-template-columns: 1fr 2fr; gap:10px; margin-top:22px;" id="wz-nav">
-        <button class="btn btn-secondary" id="wz-back" style="padding:12px; justify-content:center;">Zurück</button>
-        <button class="btn btn-primary" id="wz-next" style="padding:12px; justify-content:center;">Weiter</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============= FEATURE 4 — STATISTIK ============= -->
-<section class="feat">
-  <div class="wrap feat-row reverse">
-    <div class="feat-text">
-      <span class="section-eyebrow">Statistik</span>
-      <h2 class="section-title">Aus vielen Einträgen wird ein Muster.</h2>
-      <ul class="feat-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Horizontale Häufigkeits-Balken — sortiert nach Stärke.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Tagesprofil: Balkenhöhe = Ø-Schmerz, Deckkraft = Häufigkeit.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Bereit fürs Arztgespräch — nicht nur ein Bauchgefühl.</li>
-      </ul>
-      <div class="stat-insights">
-        <div class="insight"><div class="insight-k">Ø 4.2</div><div class="insight-l">Durchschnittlicher Schmerz</div></div>
-        <div class="insight"><div class="insight-k">12–15 Uhr</div><div class="insight-l">Häufigste Tageszeit</div></div>
-        <div class="insight"><div class="insight-k">Schläfen</div><div class="insight-l">Häufigster Ort</div></div>
+      <!-- Lifetime -->
+      <div class="price-card">
+        <div class="price-name">Lifetime</div>
+        <div class="price-amount">34,99 €<span class="per"> einmalig</span></div>
+        <div class="price-note">Kein Abo — einmal zahlen, für immer nutzen.</div>
+        <div class="price-trial">&nbsp;</div>
       </div>
     </div>
 
-    <div class="module" aria-label="Statistik">
-      <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 14px;">
-        <div style="font-size:12px; color: var(--text-3); letter-spacing:0.08em;">STATISTIK · KOPF</div>
-        <div style="font-size:12px; color: var(--text-3);">13 Einträge · 30 Tage</div>
-      </div>
-      <div class="seg" style="margin-bottom:22px;">
-        <button>7 Tage</button>
-        <button class="on">30 Tage</button>
-        <button>90 Tage</button>
-      </div>
-
-      <div class="statbars">
-        <h5>Ort</h5>
-        <div class="statrow"><span class="lbl">Schläfen</span>     <span class="bar"><i style="width:60%"></i></span><span class="n">6</span></div>
-        <div class="statrow"><span class="lbl">Hinterkopf</span>   <span class="bar"><i style="width:30%"></i></span><span class="n">3</span></div>
-        <div class="statrow"><span class="lbl">Ganzer Kopf</span>  <span class="bar"><i style="width:20%"></i></span><span class="n">2</span></div>
-        <div class="statrow"><span class="lbl">Stirn</span>        <span class="bar"><i style="width:10%"></i></span><span class="n">1</span></div>
-
-        <h5 style="margin-top:16px;">Charakter</h5>
-        <div class="statrow"><span class="lbl">Pulsierend</span>   <span class="bar"><i style="width:90%"></i></span><span class="n">9</span></div>
-        <div class="statrow"><span class="lbl">Dumpf</span>        <span class="bar"><i style="width:30%"></i></span><span class="n">3</span></div>
-
-        <h5 style="margin-top:16px;">Begleitsymptome</h5>
-        <div class="statrow"><span class="lbl">Übelkeit</span>         <span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
-        <div class="statrow"><span class="lbl">Lichtempfindlichkeit</span><span class="bar"><i style="width:12%"></i></span><span class="n">1</span></div>
-
-        <h5 style="margin-top:16px;">Tagesverlauf</h5>
-        <div class="daily" id="daily-bars"></div>
-        <div class="daily-labels">
-          <span>00</span><span>06</span><span>12</span><span>18</span>
-        </div>
-        <div class="daily-legend">Balkenhöhe = Ø Schmerz · Deckkraft = Häufigkeit</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============= ARZTBERICHT ============= -->
-<section class="feat" id="report">
-  <div class="wrap feat-row">
-    <div class="feat-text">
-      <span class="section-eyebrow">Arztbericht</span>
-      <h2 class="section-title">Ganz einfach PDF-Datei drucken.</h2>
-      <ul class="feat-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>PDF im A4-Format — druckreif für die Sprechstunde.</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Markdown-Export für die KI-Auswertung (ChatGPT, Claude).</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span>Pro Kategorie eine Seite mit Kurve, Heatmap und Symptom-Verteilung.</li>
-      </ul>
-    </div>
-
-    <!-- Fake doctor's report -->
-    <div class="report">
-      <div class="rhead">
-        <div class="rtitle">Chronica — Schmerzbericht</div>
-        <div class="rmeta">
-          18. April 2026<br/>
-          Zeitraum: 30 Tage
-        </div>
-      </div>
-
-      <h6>Kopf · Zusammenfassung</h6>
-      <div class="kpi">
-        <div><div class="v">4.2</div><div class="l">Ø Schmerz</div></div>
-        <div><div class="v">13</div><div class="l">Einträge</div></div>
-        <div><div class="v">7</div><div class="l">Peak-Tage</div></div>
-      </div>
-
-      <h6>Kalender (30 Tage)</h6>
-      <div class="rhm" id="report-hm"></div>
-
-      <h6 style="margin-top:18px;">Tagesprofil (Ø Schmerz pro Stunde)</h6>
-      <div class="daily" id="report-daily" style="height:54px;"></div>
-
-      <h6 style="margin-top:18px;">Häufigste Begleitsymptome</h6>
-      <div class="statbars" style="gap:6px;">
-        <div class="statrow"><span class="lbl">Übelkeit</span><span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
-        <div class="statrow"><span class="lbl">Lichtempfindl.</span><span class="bar"><i style="width:12%"></i></span><span class="n">1</span></div>
-      </div>
-    </div>
+    <p class="price-foot">Alle Tarife mit vollem Funktionsumfang inkl. aller zukünftigen Features. Abos jederzeit kündbar.</p>
   </div>
 </section>
 
@@ -908,21 +711,33 @@
         <div class="ico">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6l9-4z"/></svg>
         </div>
-        <h4>Lokal gespeichert</h4>
+        <div>
+          <h4>Sicher in der EU</h4>
+          <p>Deine Daten liegen verschlüsselt auf Servern in der EU (Frankfurt).</p>
+        </div>
       </div>
       <div class="priv-card">
         <div class="ico">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/></svg>
         </div>
-        <h4>Kein Tracking</h4>
+        <div>
+          <h4>Kein Tracking</h4>
+          <p>Keine Werbung, kein Profiling, keine Weitergabe deiner Gesundheitsdaten.</p>
+        </div>
       </div>
       <div class="priv-card">
         <div class="ico">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 4v16M16 4v16M4 12h16"/></svg>
         </div>
-        <h4>Export in deiner Hand</h4>
+        <div>
+          <h4>Export in deiner Hand</h4>
+          <p>Jederzeit als PDF exportieren — oder dein Konto samt Daten löschen.</p>
+        </div>
       </div>
     </div>
+    <p style="margin-top: 28px; font-size: 15px;">
+      <a href="datenschutz.html" style="color: var(--accent-600); text-decoration: none; font-weight: 600;">→ Zur vollständigen Datenschutzerklärung</a>
+    </p>
   </div>
 </section>
 
@@ -932,8 +747,7 @@
     <span class="section-eyebrow">Download</span>
     <h2 class="section-title">Fang heute Abend an.</h2>
     <div class="cta-wrap">
-      <a class="btn btn-primary" href="#" data-cta-text>App laden</a>
-      <a class="btn btn-secondary" href="#">Zur Beta anmelden</a>
+      <a class="btn btn-primary" href="#">Jetzt 30 Tage kostenlos testen</a>
     </div>
   </div>
 </section>
@@ -946,263 +760,17 @@
       <span>Chronica</span>
     </a>
     <div class="foot-links">
-      <a href="#">Impressum</a>
-      <a href="#privacy">Datenschutz</a>
-      <a href="FAQ.html">FAQ</a>
-      <a href="#">Kontakt</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="mailto:orga@chronica-app.com">Kontakt</a>
     </div>
     <div class="muted">© 2026 Chronica</div>
   </div>
 </footer>
 
-<!-- ============= TWEAKS ============= -->
-<div class="tweaks-panel" id="tweaks-panel" aria-hidden="true">
-  <h5>Tweaks</h5>
-  <div class="tweaks-row">
-    <label>Theme</label>
-    <div class="seg" id="tw-theme">
-      <button data-theme-val="light" class="on">Hell</button>
-      <button data-theme-val="dark">Dunkel</button>
-    </div>
-  </div>
-  <div class="tweaks-row">
-    <label>Akzentfarbe</label>
-    <div class="swatches" id="tw-swatch">
-      <button data-accent="#ef4444" data-hover="#dc2626" style="background:#ef4444" class="on" title="Rot"></button>
-      <button data-accent="#a855f7" data-hover="#9333ea" style="background:#a855f7" title="Lila"></button>
-      <button data-accent="#0ea5e9" data-hover="#0284c7" style="background:#0ea5e9" title="Blau"></button>
-      <button data-accent="#10b981" data-hover="#059669" style="background:#10b981" title="Grün"></button>
-      <button data-accent="#1f2937" data-hover="#111827" style="background:#1f2937" title="Schwarz"></button>
-    </div>
-  </div>
-  <div class="tweaks-row">
-    <label>Nav-CTA Text</label>
-    <input type="text" id="tw-cta" value="App laden" />
-  </div>
-  <div class="tweaks-row">
-    <label>Hero-Sprache</label>
-    <div class="seg" id="tw-hero">
-      <button data-hero="muster" class="on">Muster</button>
-      <button data-hero="begleiter">Begleiter</button>
-      <button data-hero="arzt">Für Arzt</button>
-    </div>
-  </div>
-  <div class="tweaks-row">
-    <label>Feature-Copy</label>
-    <div class="seg" id="tw-copy">
-      <button data-copy="text">Fließtext</button>
-      <button data-copy="haken">Hakenliste</button>
-    </div>
-  </div>
-</div>
 <script>
-  /* ---------------- TWEAKS / EDIT MODE ---------------- */
-  const TWEAK_DEFAULTS = {
-    "theme": "light",
-    "accent": "#ef4444",
-    "accentHover": "#dc2626",
-    "ctaText": "App laden",
-    "hero": "muster",
-    "copymode": "text"
-  };
-
-  const state = Object.assign({}, TWEAK_DEFAULTS);
-
-  const heroTexts = {
-    muster: {
-      eyebrow: "",
-      title: 'Dein täglicher Begleiter bei chronischen Schmerzen',
-      lede: ""
-    },
-    begleiter: {
-      eyebrow: "Dein täglicher Begleiter",
-      title: 'Schmerz ist <em>privat</em>.<br/>Dokumentation muss es auch sein.',
-      lede: "Chronica bleibt auf deinem Gerät. Keine Cloud-Pflicht, kein Tracking — nur dein Tagebuch und ein PDF, wenn du es brauchst."
-    },
-    arzt: {
-      eyebrow: "Fürs Arztgespräch gemacht",
-      title: 'Schluss mit<br/>„war das nicht <em>letzte Woche</em>?"',
-      lede: "Ein strukturierter Arztbericht in A4 — mit Kalender, Tagesprofil und Häufigkeiten. Drucken und mitnehmen."
-    }
-  };
-
-  function applyState() {
-    document.documentElement.setAttribute('data-theme', state.theme);
-    document.documentElement.style.setProperty('--accent', state.accent);
-    document.documentElement.style.setProperty('--accent-600', state.accentHover);
-
-    // derive tints from accent
-    document.documentElement.style.setProperty('--accent-100',
-      `color-mix(in oklab, ${state.accent} 22%, ${state.theme === 'dark' ? '#000' : '#fff'})`);
-    document.documentElement.style.setProperty('--accent-50',
-      `color-mix(in oklab, ${state.accent} 10%, ${state.theme === 'dark' ? '#000' : '#fff'})`);
-
-    document.body.setAttribute('data-copymode', state.copymode || 'text');
-
-    document.querySelectorAll('[data-cta-text]').forEach(el => { el.textContent = state.ctaText; });
-
-    const h = heroTexts[state.hero] || heroTexts.muster;
-    const eyebrow = document.querySelector('.hero .eyebrow');
-    if (eyebrow) eyebrow.innerHTML = '<span class="dot"></span> ' + h.eyebrow;
-    const title = document.querySelector('.hero .title');
-    if (title) title.innerHTML = h.title;
-    const lede = document.querySelector('.hero .lede');
-    if (lede) lede.textContent = h.lede;
-
-    // tweaks UI reflection
-    document.querySelectorAll('#tw-theme button').forEach(b =>
-      b.classList.toggle('on', b.dataset.themeVal === state.theme));
-    document.querySelectorAll('#tw-swatch button').forEach(b =>
-      b.classList.toggle('on', b.dataset.accent === state.accent));
-    document.querySelectorAll('#tw-hero button').forEach(b =>
-      b.classList.toggle('on', b.dataset.hero === state.hero));
-    document.querySelectorAll('#tw-copy button').forEach(b =>
-      b.classList.toggle('on', b.dataset.copy === (state.copymode || 'text')));
-    const cta = document.getElementById('tw-cta');
-    if (cta) cta.value = state.ctaText;
-  }
-
-  function persist(edits) {
-    Object.assign(state, edits);
-    applyState();
-  }
-
-  // Tweaks interactions
-  document.querySelectorAll('#tw-theme button').forEach(b =>
-    b.addEventListener('click', () => persist({ theme: b.dataset.themeVal })));
-  document.querySelectorAll('#tw-swatch button').forEach(b =>
-    b.addEventListener('click', () => persist({ accent: b.dataset.accent, accentHover: b.dataset.hover })));
-  document.querySelectorAll('#tw-hero button').forEach(b =>
-    b.addEventListener('click', () => persist({ hero: b.dataset.hero })));
-  document.querySelectorAll('#tw-copy button').forEach(b =>
-    b.addEventListener('click', () => persist({ copymode: b.dataset.copy })));
-  document.getElementById('tw-cta').addEventListener('input', e =>
-    persist({ ctaText: e.target.value || 'App laden' }));
-
-  applyState();
-
-  /* ---------------- HEATMAP DATA ---------------- */
-  function makeCells(container, n, seed) {
-    const el = document.getElementById(container);
-    if (!el) return;
-    let s = seed;
-    function rand() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
-    for (let i = 0; i < n; i++) {
-      const r = rand();
-      let cls = '';
-      if (r < 0.38) cls = '';
-      else if (r < 0.58) cls = 'l1';
-      else if (r < 0.72) cls = 'l2';
-      else if (r < 0.82) cls = 'l3';
-      else if (r < 0.9)  cls = 'l4';
-      else if (r < 0.96) cls = 'l5';
-      else               cls = 'l6';
-      el.insertAdjacentHTML('beforeend', `<div class="hm-cell ${cls}"></div>`);
-    }
-  }
-  makeCells('hero-heatmap', 35, 42);
-  makeCells('hm-mar', 31, 103);
-  makeCells('hm-apr', 18, 77);
-  (() => {
-    const apr = document.getElementById('hm-apr');
-    if (apr && apr.lastChild) apr.lastChild.classList.add('today');
-  })();
-  makeCells('report-hm', 30, 205);
-
-  /* ---------------- PAIN CHART ---------------- */
-  (function drawChart() {
-    const svg = document.getElementById('pain-chart');
-    if (!svg) return;
-    const W = 460, H = 220;
-    const padL = 28, padR = 12, padT = 10, padB = 26;
-    const data = [2,2.4,3,3.2,3.8,4.2,4.8,5,5.4,5.6,6,6.4,6.8,7,7,7,7,6,4.2,3.2,3,3,3,3];
-
-    const x = i => padL + i * (W - padL - padR) / (data.length - 1);
-    const y = v => padT + (10 - v) * (H - padT - padB) / 10;
-
-    let grid = '';
-    for (let v = 0; v <= 10; v += 2) {
-      grid += `<line x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}" stroke="var(--border)" stroke-width="1"/>`;
-      grid += `<text x="${padL - 6}" y="${y(v) + 3}" text-anchor="end" font-size="10" fill="var(--text-4)" font-family="inherit">${v}</text>`;
-    }
-    [0, 6, 12, 18].forEach(h => {
-      grid += `<text x="${x(h)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="var(--text-4)">${String(h).padStart(2,'0')}:00</text>`;
-    });
-
-    let path = '';
-    data.forEach((v, i) => { path += (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(v).toFixed(1) + ' '; });
-    let dots = '';
-    data.forEach((v, i) => {
-      dots += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3" fill="var(--accent)"/>`;
-    });
-
-    svg.innerHTML = grid
-      + `<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;"/>`
-      + dots;
-  })();
-
-  /* ---------------- DAILY BARS ---------------- */
-  function makeDaily(id, heightPattern) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const pattern = heightPattern || [0.2,0.15,0.12,0.15,0.2,0.28,0.4,0.55,0.7,0.75,0.8,0.78,0.82,0.78,0.7,0.78,0.72,0.55,0.48,0.4,0.38,0.3,0.25,0.22];
-    pattern.forEach((h, i) => {
-      const op = 0.4 + ((i * 37) % 100) / 200;
-      el.insertAdjacentHTML('beforeend',
-        `<b style="height:${Math.round(h * 100)}%; opacity:${op.toFixed(2)}"></b>`);
-    });
-  }
-  makeDaily('daily-bars');
-  makeDaily('report-daily');
-
-  /* WIZARD */
-  (function initWizard() {
-    const wz = document.getElementById('wizard');
-    if (!wz) return;
-    let step = 1;
-    const titles = { 1: 'Gesamtschmerz', 2: 'Ort', 3: 'Charakter', 4: 'Begleitsymptome' };
-    const scaleEl = document.getElementById('wz-scale');
-    scaleEl.addEventListener('click', e => {
-      const b = e.target.closest('button[data-v]');
-      if (!b) return;
-      scaleEl.querySelectorAll('button').forEach(x => x.classList.remove('on'));
-      b.classList.add('on');
-    });
-    wz.querySelectorAll('[data-multi] .chip').forEach(c => c.addEventListener('click', () => c.classList.toggle('on')));
-    function render() {
-      wz.querySelectorAll('.wz-pane').forEach(p => p.hidden = +p.dataset.step !== step);
-      const prog = document.getElementById('wz-progress').children;
-      for (let i = 0; i < 4; i++) prog[i].classList.toggle('done', i < step);
-      document.getElementById('wz-step').textContent = Math.min(step, 4);
-      document.getElementById('wz-title').textContent = titles[step] || '';
-      const back = document.getElementById('wz-back');
-      const next = document.getElementById('wz-next');
-      if (step === 5) {
-        document.getElementById('wz-nav').style.gridTemplateColumns = '1fr';
-        back.style.display = 'none';
-        next.textContent = 'Nochmal durchgehen';
-      } else {
-        document.getElementById('wz-nav').style.gridTemplateColumns = '1fr 2fr';
-        back.style.display = '';
-        back.disabled = step === 1;
-        back.style.opacity = step === 1 ? 0.4 : 1;
-        next.textContent = step === 4 ? 'Speichern' : 'Weiter';
-      }
-    }
-    document.getElementById('wz-back').addEventListener('click', () => { if (step > 1 && step < 5) { step--; render(); } });
-    document.getElementById('wz-next').addEventListener('click', () => {
-      if (step === 5) {
-        step = 1;
-        scaleEl.querySelectorAll('button').forEach(x => x.classList.remove('on'));
-        wz.querySelectorAll('[data-multi] .chip').forEach(c => c.classList.remove('on'));
-      } else if (step < 4) step++;
-      else step = 5;
-      render();
-    });
-    render();
-  })();
-
-  /* SECTION REVEAL */
+  /* SECTION REVEAL — dezentes Einblenden beim Scrollen */
   (function initSectionReveal() {
     const targets = document.querySelectorAll('section.feat, section.download');
     targets.forEach(el => el.classList.add('reveal-section'));
@@ -1217,63 +785,21 @@
     targets.forEach(el => sio.observe(el));
   })();
 
-  /* SCROLL ANIMATIONS */
-  (function initReveal() {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.querySelectorAll('.hm-cell').forEach((c, i) => {
-          c.style.opacity = '0'; c.style.transform = 'scale(0.6)';
-          c.style.transition = 'opacity 240ms ease, transform 240ms ease';
-          setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'scale(1)'; }, i * 12);
-        });
-        io.unobserve(e.target);
-      });
-    }, { threshold: 0.2 });
-    ['hero-heatmap', 'hm-mar', 'hm-apr', 'report-hm'].forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
-
-    const chartIO = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const path = e.target.querySelector('path');
-        const dots = e.target.querySelectorAll('circle');
-        if (path) {
-          path.style.transition = 'stroke-dashoffset 1800ms cubic-bezier(.4,0,.2,1)';
-          requestAnimationFrame(() => { requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; }); });
-        }
-        dots.forEach((d) => { d.style.opacity = '0'; d.style.transition = 'opacity 300ms ease'; });
-        setTimeout(() => { dots.forEach(d => { d.style.opacity = '1'; }); }, 1500);
-        chartIO.unobserve(e.target);
-      });
-    }, { threshold: 0.3 });
-    const chart = document.getElementById('pain-chart'); if (chart) chartIO.observe(chart);
-
+  /* STATISTIK-BALKEN — Wachsen beim Sichtbarwerden */
+  (function initBarReveal() {
     const barIO = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        if (e.target.classList.contains('statbars')) {
-          e.target.querySelectorAll('.statrow .bar > i').forEach((bar, i) => {
-            const w = bar.style.width || getComputedStyle(bar).width;
-            bar.style.width = '0%';
-            bar.style.transition = 'width 900ms cubic-bezier(.2,.8,.2,1)';
-            setTimeout(() => { bar.style.width = w; }, 80 + i * 60);
-          });
-        } else if (e.target.classList.contains('daily')) {
-          const bars = e.target.querySelectorAll('b');
-          bars.forEach((b) => {
-            b.dataset.h = b.style.height;
-            b.style.height = '0%';
-            b.style.transition = 'height 700ms cubic-bezier(.2,.8,.2,1)';
-          });
-          void e.target.offsetHeight;
-          bars.forEach((b, i) => {
-            setTimeout(() => { b.style.height = b.dataset.h; }, 50 + i * 35);
-          });
-        }
+        e.target.querySelectorAll('.statrow .bar > i').forEach((bar, i) => {
+          const w = bar.style.width || getComputedStyle(bar).width;
+          bar.style.width = '0%';
+          bar.style.transition = 'width 900ms cubic-bezier(.2,.8,.2,1)';
+          setTimeout(() => { bar.style.width = w; }, 80 + i * 60);
+        });
         barIO.unobserve(e.target);
       });
     }, { threshold: 0.15 });
-    document.querySelectorAll('.statbars, .daily').forEach(el => barIO.observe(el));
+    document.querySelectorAll('.statbars').forEach(el => barIO.observe(el));
   })();
 </script>
 </body>

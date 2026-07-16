@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AGB — Chronica</title>
+<style>
+  :root {
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --text-4: #9ca3af;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+    --accent: #ef4444;
+    --accent-600: #dc2626;
+    --accent-100: #fee2e2;
+    --accent-50: #fef2f2;
+    --radius-card: 16px;
+    --radius-btn: 12px;
+    --shadow-card: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.04);
+    --max: 1200px;
+    --pad: 24px;
+    --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Roboto, sans-serif;
+  }
+  html[data-theme="dark"] {
+    --bg: #000000;
+    --card: #111111;
+    --text: #ffffff;
+    --text-2: #e5e7eb;
+    --text-3: #9ca3af;
+    --text-4: #6b7280;
+    --border: #222222;
+    --border-light: #1a1a1a;
+    --accent-50: #1a0808;
+    --accent-100: #2a0d0d;
+    --shadow-card: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img, svg { display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; color: inherit;
+  }
+  .logo-mark { width: 28px; height: 28px; border-radius: 8px; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-3); }
+  .nav-links a { text-decoration: none; color: var(--text-3); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    padding: 9px 16px; border-radius: var(--radius-btn);
+    background: var(--accent); color: white; text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: background 120ms ease;
+  }
+  .nav-cta:hover { background: var(--accent-600); text-decoration: none; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header .breadcrumb {
+    font-size: 13px; color: var(--text-3); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .page-header .breadcrumb a { color: var(--text-3); text-decoration: none; }
+  .page-header .breadcrumb a:hover { color: var(--text); }
+  .page-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; letter-spacing: -0.025em;
+  }
+  .page-header .meta { font-size: 13px; color: var(--text-4); }
+
+  /* CONTENT */
+  .legal-content {
+    max-width: 720px;
+    padding: 56px 0 96px;
+  }
+  .legal-content h2 {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 48px 0 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+  }
+  .legal-content h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  .legal-content p { color: var(--text-2); margin: 0 0 14px; font-size: 15px; }
+  .legal-content ul {
+    margin: 0 0 14px; padding-left: 0;
+    list-style: none;
+    display: grid; gap: 6px;
+  }
+  .legal-content ul li {
+    font-size: 15px; color: var(--text-2);
+    display: flex; gap: 10px; align-items: baseline;
+  }
+  .legal-content ul li::before {
+    content: "–";
+    color: var(--text-4);
+    flex-shrink: 0;
+  }
+  .legal-content a { color: var(--accent); }
+  .legal-content strong { color: var(--text); font-weight: 600; }
+
+  /* Pricing table */
+  .price-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0 20px; font-size: 14px;
+  }
+  .price-table th {
+    text-align: left; padding: 10px 14px;
+    background: var(--border-light); color: var(--text-3);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-table th:first-child { border-radius: 8px 0 0 0; }
+  .price-table th:last-child { border-radius: 0 8px 0 0; }
+  .price-table td {
+    padding: 12px 14px; color: var(--text-2);
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+  }
+  .price-table tr:last-child td { border-bottom: none; }
+  .price-table td strong { color: var(--text); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 40px 0 56px; font-size: 13px; color: var(--text-3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .foot-links a { text-decoration: none; color: var(--text-3); }
+  .foot-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#preise">Preise</a>
+      <a href="index.html#privacy">Datenschutz</a>
+    </div>
+    <a class="nav-cta" href="index.html#download">App laden</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="index.html">Chronica</a>
+      <span>›</span>
+      <span>AGB</span>
+    </div>
+    <h1>Allgemeine Geschäftsbedingungen</h1>
+    <div class="meta">Stand: Juni 2026</div>
+  </div>
+
+  <div class="legal-content">
+
+    <h2>§ 1 Geltungsbereich und Anbieter</h2>
+    <p>(1) Diese Allgemeinen Geschäftsbedingungen gelten für die Nutzung der mobilen App „Chronica" (nachfolgend „App").</p>
+    <p>(2) Anbieter und Vertragspartner ist der Betreiber der App. Die vollständige Anbieterkennzeichnung mit Name und Anschrift findest du am Ende dieser AGB (Abschnitt „Anbieter") sowie im <a href="impressum.html">Impressum</a>.</p>
+    <p>(3) Abweichende Bedingungen des Nutzers werden nicht anerkannt, es sei denn, der Anbieter stimmt ihrer Geltung ausdrücklich schriftlich zu.</p>
+
+    <h2>§ 2 Vertragsgegenstand und Leistungsbeschreibung</h2>
+    <p>(1) Chronica ist ein digitales Schmerz- und Symptomtagebuch. Nutzer können Schmerzverläufe, Begleitsymptome, Medikamenteneinnahmen und weitere gesundheitsbezogene Angaben erfassen, auswerten und als Bericht exportieren.</p>
+    <p>(2) Bestimmte Funktionen sind kostenlos nutzbar. Erweiterte Funktionen (insbesondere langfristige Auswertungen, Statistiken und Arztberichte) sind kostenpflichtig und im Rahmen eines Abonnements oder eines Einmalkaufs („Lifetime") freigeschaltet.</p>
+    <p>(3) <strong>Chronica ist kein zugelassenes Medizinprodukt.</strong> Die App ersetzt keine ärztliche Beratung, Diagnose oder Behandlung. Alle Auswertungen dienen ausschließlich der persönlichen Übersicht des Nutzers.</p>
+    <p>(4) Der Anbieter entwickelt die App fortlaufend weiter und behält sich vor, Funktionen zu ändern, zu ergänzen oder einzustellen, soweit dies für den Nutzer zumutbar ist.</p>
+
+    <h2>§ 3 Vertragsschluss und Registrierung</h2>
+    <p>(1) Zur Nutzung ist die Erstellung eines Nutzerkontos mit einer gültigen E-Mail-Adresse erforderlich.</p>
+    <p>(2) Der Nutzer ist verpflichtet, seine Zugangsdaten geheim zu halten und vor dem Zugriff Dritter zu schützen.</p>
+    <p>(3) Ein kostenpflichtiger Vertrag kommt erst durch Abschluss eines Abonnements oder eines Einmalkaufs über den jeweiligen App-Store zustande (siehe § 4).</p>
+
+    <h2>§ 4 Preise, Abonnements und Zahlungsabwicklung</h2>
+    <p>(1) Es stehen folgende kostenpflichtige Optionen zur Verfügung:</p>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Preis</th>
+          <th>Testphase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Monatsabo</strong></td>
+          <td>3,99 € / Monat</td>
+          <td>30 Tage kostenlos</td>
+        </tr>
+        <tr>
+          <td><strong>6-Monats-Abo</strong></td>
+          <td>17,99 € / 6 Monate (= 3,00 € / Monat)</td>
+          <td>30 Tage kostenlos</td>
+        </tr>
+        <tr>
+          <td><strong>Lifetime</strong></td>
+          <td>34,99 € einmalig</td>
+          <td>Nicht enthalten</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>(2) <strong>Kostenlose Testphase:</strong> Für die Abonnements (Monats- und 6-Monats-Abo) wird eine kostenlose Testphase von 30 Tagen gewährt, sofern der Nutzer hierfür berechtigt ist. Wird das Abonnement nicht spätestens 24 Stunden vor Ablauf der Testphase gekündigt, geht es kostenpflichtig in das gewählte Abo über. Der Lifetime-Kauf ist von der Testphase ausgenommen.</p>
+    <p>(3) <strong>Zahlungsabwicklung:</strong> Kauf, Abrechnung und Zahlungsabwicklung erfolgen ausschließlich über den jeweiligen App-Store (Apple App Store bzw. Google Play Store) und unterliegen zusätzlich den dortigen Nutzungs- und Zahlungsbedingungen. Der Kaufpreis wird über das beim App-Store hinterlegte Zahlungsmittel eingezogen.</p>
+    <p>(4) Alle Preise sind Endpreise. Der Anbieter ist Kleinunternehmer gemäß § 19 UStG; es wird keine Umsatzsteuer ausgewiesen.</p>
+    <p>(5) Der Anbieter behält sich vor, die Preise für künftige Abrechnungszeiträume anzupassen. Über Preisänderungen wird rechtzeitig vor Inkrafttreten informiert; sie gelten nicht für bereits laufende, im Voraus bezahlte Zeiträume.</p>
+
+    <h2>§ 5 Laufzeit, Verlängerung und Kündigung</h2>
+    <p>(1) Abonnements verlängern sich automatisch um die jeweils gewählte Laufzeit (1 Monat bzw. 6 Monate), sofern sie nicht spätestens 24 Stunden vor Ablauf des laufenden Abrechnungszeitraums gekündigt werden.</p>
+    <p>(2) Die Kündigung sowie die Verwaltung des Abonnements erfolgen über die Konto-Einstellungen des jeweiligen App-Stores (Apple App Store bzw. Google Play Store). Eine Kündigung über den Anbieter direkt ist nicht möglich, da die Vertragsverwaltung des Abonnements über den App-Store läuft.</p>
+    <p>(3) Der Lifetime-Kauf ist ein einmaliger Erwerb ohne wiederkehrende Zahlung und ohne Kündigungserfordernis.</p>
+    <p>(4) Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt für beide Seiten unberührt.</p>
+
+    <h2>§ 6 Widerrufsrecht für Verbraucher</h2>
+    <p>(1) Verbrauchern steht grundsätzlich ein gesetzliches Widerrufsrecht zu.</p>
+    <p><strong>Widerrufsbelehrung</strong></p>
+    <p>Du hast das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsschlusses. Um dein Widerrufsrecht auszuüben, musst du uns (Emil Kirchhoff, Wickuhl 43, 53797 Lohmar, <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a>) mittels einer eindeutigen Erklärung (z. B. per E-Mail) über deinen Entschluss, diesen Vertrag zu widerrufen, informieren. Zur Wahrung der Widerrufsfrist reicht es aus, dass du die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absendest.</p>
+    <p><strong>Folgen des Widerrufs</strong></p>
+    <p>Wenn du diesen Vertrag widerrufst, erstatten wir dir alle Zahlungen, die wir von dir erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag, an dem die Mitteilung über deinen Widerruf bei uns eingegangen ist.</p>
+    <p>(2) <strong>Vorzeitiges Erlöschen des Widerrufsrechts:</strong> Bei Verträgen über die Bereitstellung digitaler Inhalte erlischt das Widerrufsrecht, wenn der Anbieter mit der Ausführung des Vertrags begonnen hat, nachdem du ausdrücklich zugestimmt hast, dass mit der Ausführung vor Ablauf der Widerrufsfrist begonnen wird, und du deine Kenntnis davon bestätigt hast, dass du durch diese Zustimmung dein Widerrufsrecht verlierst (§ 356 Abs. 5 BGB).</p>
+    <p>(3) Erstattungen im Zusammenhang mit über den App-Store getätigten Käufen richten sich zusätzlich nach den Erstattungsrichtlinien des jeweiligen App-Stores.</p>
+
+    <h2>§ 7 Pflichten des Nutzers</h2>
+    <p>(1) Der Nutzer verpflichtet sich, die App nicht missbräuchlich oder rechtswidrig zu nutzen.</p>
+    <p>(2) Der Nutzer ist für die Richtigkeit der von ihm eingegebenen Daten selbst verantwortlich.</p>
+    <p>(3) Der Nutzer wird die App nicht manipulieren, zurückentwickeln (Reverse Engineering) oder Sicherheitsmechanismen umgehen, soweit dies nicht gesetzlich zwingend erlaubt ist.</p>
+
+    <h2>§ 8 Verfügbarkeit</h2>
+    <p>(1) Der Anbieter bemüht sich um eine möglichst unterbrechungsfreie Verfügbarkeit der App, schuldet jedoch keine bestimmte Verfügbarkeitsquote.</p>
+    <p>(2) Wartungsarbeiten, technische Störungen oder Umstände außerhalb des Einflussbereichs des Anbieters (z. B. Ausfälle von App-Stores oder Hosting-Dienstleistern) können die Verfügbarkeit vorübergehend einschränken.</p>
+
+    <h2>§ 9 Haftung</h2>
+    <p>(1) Der Anbieter haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit, die auf einer fahrlässigen oder vorsätzlichen Pflichtverletzung beruhen, sowie für Schäden, die auf Vorsatz oder grober Fahrlässigkeit beruhen.</p>
+    <p>(2) Für einfache Fahrlässigkeit haftet der Anbieter nur bei Verletzung einer wesentlichen Vertragspflicht (Kardinalpflicht), deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Nutzer regelmäßig vertrauen darf. In diesem Fall ist die Haftung auf den vertragstypischen, vorhersehbaren Schaden begrenzt.</p>
+    <p>(3) Eine weitergehende Haftung ist ausgeschlossen. Insbesondere haftet der Anbieter nicht für gesundheitliche Folgen, die aus der Nutzung oder Nicht-Nutzung der in der App dargestellten Informationen oder Auswertungen entstehen. Chronica trifft keine medizinischen Aussagen und ersetzt keine ärztliche Beratung.</p>
+    <p>(4) Die Haftung nach dem Produkthaftungsgesetz bleibt unberührt.</p>
+
+    <h2>§ 10 Datenschutz</h2>
+    <p>Die Verarbeitung personenbezogener Daten – insbesondere von Gesundheitsdaten – ist in der <a href="datenschutz.html">Datenschutzerklärung</a> geregelt, die in der App unter Einstellungen → Rechtliches einsehbar ist.</p>
+
+    <h2>§ 11 Änderungen dieser AGB</h2>
+    <p>(1) Der Anbieter behält sich vor, diese AGB mit Wirkung für die Zukunft zu ändern, soweit dies aus triftigem Grund (z. B. geänderte Rechtslage, neue Funktionen) erforderlich ist und der Nutzer hierdurch nicht unangemessen benachteiligt wird.</p>
+    <p>(2) Über Änderungen wird der Nutzer rechtzeitig vor Inkrafttreten in geeigneter Weise informiert. Die jeweils aktuelle Fassung ist in der App einsehbar.</p>
+
+    <h2>§ 12 Schlussbestimmungen</h2>
+    <p>(1) Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts. Zwingende Verbraucherschutzvorschriften des Staates, in dem der Verbraucher seinen gewöhnlichen Aufenthalt hat, bleiben unberührt.</p>
+    <p>(2) Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+    <p>(3) Apple und Google sind nicht Vertragspartner dieser AGB. Diese AGB regeln ausschließlich das Verhältnis zwischen dem Anbieter und dem Nutzer.</p>
+
+    <h2>Anbieter</h2>
+    <p>
+      Emil Kirchhoff<br/>
+      Wickuhl 43<br/>
+      53797 Lohmar<br/>
+      Deutschland<br/>
+      E-Mail: <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a>
+    </p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <a href="index.html" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="foot-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="mailto:orga@chronica-app.com">Kontakt</a>
+    </div>
+    <div style="color: var(--text-4);">© 2026 Chronica</div>
+  </div>
+</footer>
+
+</body>
+</html>
