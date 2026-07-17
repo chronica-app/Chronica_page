@@ -415,7 +415,7 @@
   .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
   .price-card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 28px 24px;
+    border-radius: 20px; padding: 22px 22px;
     box-shadow: var(--shadow-card);
     display: flex; flex-direction: column;
     position: relative;
@@ -431,7 +431,7 @@
     padding: 5px 14px; border-radius: 999px; white-space: nowrap;
   }
   .price-name { font-size: 15px; font-weight: 700; color: var(--text-2); }
-  .price-amount { margin: 10px 0 2px; font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  .price-amount { margin: 8px 0 2px; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
   .price-amount .per { font-size: 15px; font-weight: 500; color: var(--text-3); }
   .price-note { font-size: 13px; color: var(--text-3); min-height: 20px; }
   .price-trial { margin: 16px 0 0; font-size: 13px; color: var(--accent-600); font-weight: 600; }
@@ -500,6 +500,7 @@
 
     section { padding: 40px 0; }
     .hero { padding: 20px 0 40px; }
+    .hero-visual { display: none; }
 
     h1.title { font-size: clamp(32px, 9vw, 42px); margin: 16px 0 12px; }
     .lede { font-size: 17px; }
@@ -543,7 +544,7 @@
     border-color: color-mix(in oklab, var(--accent) 30%, var(--border));
   }
   .b-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
-  .b-card h3 { margin: 8px 0 4px; font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
+  .b-card h3 { margin: 8px 0 18px; font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
   .b-card .b-sub { margin: 0 0 18px; font-size: 14px; color: var(--text-3); text-wrap: pretty; }
   .b-visual { margin-top: auto; }
 
@@ -637,7 +638,6 @@
       <div class="b-card b-curve">
         <span class="b-eyebrow">Schmerzkurve</span>
         <h3>Zeichne deinen Tag — mit dem Finger</h3>
-        <p class="b-sub">Stundengenau von 0 bis 10, über die vollen 24 Stunden — der echte Verlauf statt eines einzelnen Werts pro Tag. Im schnellen Abend-Check-in ergänzt du Ort, Symptome &amp; Medikamente in Sekunden.</p>
         <div class="b-visual">
           <div class="crop-card">
             <img src="bilder/crops/kurve_neu.jpg" alt="Handgezeichnete Schmerzkurve über 24 Stunden" />
@@ -649,7 +649,6 @@
       <div class="b-card b-stats">
         <span class="b-eyebrow">Statistik</span>
         <h3>Aus Einträgen wird ein Muster</h3>
-        <p class="b-sub">Häufigkeiten, sortiert nach Stärke — bereit fürs Arztgespräch.</p>
         <div class="b-visual">
           <div class="statbars">
             <div class="statrow"><span class="lbl">Schläfen</span><span class="bar"><i style="width:100%"></i></span><span class="n">10</span></div>
@@ -664,7 +663,6 @@
       <div class="b-card b-report" id="report">
         <span class="b-eyebrow">Arztbericht</span>
         <h3>Ein Klick zum PDF</h3>
-        <p class="b-sub">Exportiere deine Schmerzdaten als druckreifen Bericht — fertig für die Sprechstunde.</p>
         <div class="b-visual">
           <div class="rm-top">
             <div class="rm-ico">
@@ -699,7 +697,6 @@
       <div class="price-card">
         <div class="price-name">Monatlich</div>
         <div class="price-amount">3,99 €<span class="per"> / Monat</span></div>
-        <div class="price-note">Flexibel — monatlich zahlen.</div>
         <div class="price-trial">30 Tage kostenlos testen</div>
       </div>
 
@@ -708,15 +705,13 @@
         <span class="price-badge">Beliebteste Wahl</span>
         <div class="price-name">6 Monate</div>
         <div class="price-amount">17,99 €<span class="per"> / 6 Monate</span></div>
-        <div class="price-note">Entspricht 3,00 €/Monat · −25 %</div>
-        <div class="price-trial">30 Tage kostenlos testen</div>
+        <div class="price-trial">30 Tage kostenlos testen · −25 %</div>
       </div>
 
       <!-- Lifetime -->
       <div class="price-card">
         <div class="price-name">Lifetime</div>
         <div class="price-amount">34,99 €<span class="per"> einmalig</span></div>
-        <div class="price-note">Kein Abo — einmal zahlen, für immer nutzen.</div>
         <div class="price-trial">&nbsp;</div>
       </div>
     </div>
