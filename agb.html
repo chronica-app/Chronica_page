@@ -150,6 +150,20 @@
   .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
   .foot-links a { text-decoration: none; color: var(--text-3); }
   .foot-links a:hover { color: var(--text); }
+
+  /* MOBILE */
+  @media (max-width: 760px) {
+    :root { --pad: 18px; }
+    html, body { overflow-x: hidden; }
+    .page-header { padding: 40px 0 28px; }
+    .legal-content { padding: 32px 0 56px; }
+    .legal-content h2 { margin: 32px 0 10px; }
+    .price-table { font-size: 13px; }
+    .price-table th, .price-table td { padding: 9px 10px; }
+    footer { padding: 32px 0 40px; }
+    .foot { flex-direction: column; text-align: center; justify-content: center; gap: 20px; }
+    .foot-links { justify-content: center; gap: 16px 20px; }
+  }
 </style>
 </head>
 <body>

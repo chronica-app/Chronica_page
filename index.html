@@ -486,11 +486,40 @@
 
   /* responsive */
   @media (max-width: 900px) {
-    section { padding: 72px 0; }
+    section { padding: 56px 0; }
     .hero-grid, .priv-grid { grid-template-columns: 1fr; gap: 40px; }
     .hero-grid > div:first-child { text-align: center; }
     .hero-ctas { justify-content: center; }
     .priv-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 760px) {
+    :root { --pad: 18px; }
+    html, body { overflow-x: hidden; }
+
+    section { padding: 40px 0; }
+    .hero { padding: 20px 0 40px; }
+
+    h1.title { font-size: clamp(32px, 9vw, 42px); margin: 16px 0 12px; }
+    .lede { font-size: 17px; }
+    .section-title { font-size: clamp(24px, 7vw, 30px); }
+    .section-lede { font-size: 16px; }
+
+    /* enger stapeln */
+    .priv-grid { margin-top: 24px; gap: 12px; }
+    .price-head { margin-bottom: 28px; }
+    .price-grid { gap: 12px; }
+    .bento-head { margin-bottom: 28px; }
+    .bento { gap: 12px; }
+
+    /* Karten kompakter */
+    .b-card, .price-card, .priv-card { padding: 20px; }
+
+    /* Footer sauber zentriert stapeln */
+    footer { padding: 32px 0 40px; }
+    .foot { flex-direction: column; text-align: center; justify-content: center; gap: 20px; }
+    .foot-links { flex-wrap: wrap; justify-content: center; gap: 16px 20px; }
   }
 
   /* tiny helpers */
@@ -602,10 +631,6 @@
 <!-- ============= BENTO — FEATURES ============= -->
 <section class="feat" id="features">
   <div class="wrap">
-    <div class="bento-head">
-      <h2 class="section-title">Alles drin, was du brauchst.</h2>
-    </div>
-
     <div class="bento">
 
       <!-- Schmerzkurve (inkl. Abend-Check-in) -->
