@@ -105,34 +105,50 @@
   }
 
   /* ---------- HERO ---------- */
-  .hero { padding: 32px 0 80px; position: relative; }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 10px; border-radius: 999px;
-    background: var(--accent-50); color: var(--accent-600);
-    font-size: 12px; font-weight: 600;
-    letter-spacing: 0.02em;
-    border: 1px solid color-mix(in oklab, var(--accent) 25%, transparent);
+  .hero { padding: 28px 0 52px; position: relative; }
+  .hero-stage {
+    position: relative; overflow: hidden;
+    min-height: 664px;
+    display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
   }
-  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* Mockup: leicht nach hinten geneigt, unten weichgezeichnet */
+  .hero-shot {
+    position: absolute; top: 0; left: 50%;
+    width: 320px; max-width: 76vw; height: 700px;
+    border-radius: 30px; border: 1px solid var(--border);
+    overflow: hidden; background: var(--card);
+    transform: translateX(-50%) perspective(1500px) rotateX(9deg);
+    transform-origin: 50% 0%;
+    box-shadow: 0 24px 60px rgba(17,24,39,.10);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 83%, transparent 99%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 83%, transparent 99%);
+  }
+  html[data-theme="dark"] .hero-shot { box-shadow: 0 24px 60px rgba(0,0,0,.6); }
+  .hero-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+  /* Weichzeichner-Verlauf über der unteren Hälfte des Mockups */
+  .hero-fade {
+    position: absolute; left: 0; right: 0;
+    bottom: 0; height: 250px; z-index: 1; pointer-events: none;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--bg) 0%, transparent) 0%, color-mix(in oklab, var(--bg) 22%, transparent) 34%, color-mix(in oklab, var(--bg) 62%, transparent) 60%, color-mix(in oklab, var(--bg) 92%, transparent) 80%, var(--bg) 94%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.35) 26%, rgba(0,0,0,.75) 48%, #000 66%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.35) 26%, rgba(0,0,0,.75) 48%, #000 66%);
+  }
+
   h1.title {
-    margin: 20px 0 16px;
+    position: relative; z-index: 2;
+    margin: 0;
+    max-width: 17ch; text-align: center;
     font-size: clamp(40px, 5.4vw, 68px);
     line-height: 1.02;
     letter-spacing: -0.035em;
     font-weight: 700;
     text-wrap: balance;
   }
-  .title em {
-    font-style: normal;
-    color: var(--accent);
-  }
-  .lede {
-    font-size: 19px; color: var(--text-3); max-width: 48ch;
-    text-wrap: pretty;
-  }
-  .hero-ctas { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .title em { font-style: normal; color: var(--accent); }
+
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 13px 20px; border-radius: var(--radius-btn);
@@ -146,35 +162,7 @@
   .btn-secondary { background: var(--card); color: var(--text); border-color: var(--border); }
   .btn-secondary:hover { border-color: var(--text-3); }
   .btn:active { transform: translateY(1px); }
-
-  .hero-meta {
-    margin-top: 28px; display: flex; gap: 24px; flex-wrap: wrap;
-    font-size: 13px; color: var(--text-3);
-  }
-  .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
-  .hero-meta svg { width: 14px; height: 14px; }
-
   .hero-trust { margin-top: 14px; font-size: 13px; color: var(--text-3); }
-
-  /* hero visual: plain screenshot, no device frame */
-  .hero-visual {
-    position: relative;
-    display: flex; justify-content: center;
-  }
-  .hero-shot {
-    width: 100%; max-width: 300px;
-    aspect-ratio: 1170 / 2391;
-    border-radius: 24px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-card);
-    overflow: hidden;
-    background: var(--card);
-  }
-  .hero-shot img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: top center;
-    display: block;
-  }
 
   /* ---------- SECTION BASE ---------- */
   section { padding: 72px 0; }
@@ -415,9 +403,9 @@
   .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
   .price-card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 22px 22px;
+    border-radius: 18px; padding: 18px 18px 16px;
     box-shadow: var(--shadow-card);
-    display: flex; flex-direction: column;
+    display: flex; flex-direction: column; align-items: flex-start;
     position: relative;
   }
   .price-card.featured {
@@ -430,11 +418,11 @@
     font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
     padding: 5px 14px; border-radius: 999px; white-space: nowrap;
   }
-  .price-name { font-size: 15px; font-weight: 700; color: var(--text-2); }
-  .price-amount { margin: 8px 0 2px; font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
-  .price-amount .per { font-size: 15px; font-weight: 500; color: var(--text-3); }
+  .price-name { font-size: 14px; font-weight: 700; color: var(--text-2); }
+  .price-amount { margin: 4px 0 0; font-size: 27px; font-weight: 700; letter-spacing: -0.02em; }
+  .price-amount .per { font-size: 14px; font-weight: 500; color: var(--text-3); }
   .price-note { font-size: 13px; color: var(--text-3); min-height: 20px; }
-  .price-trial { margin: 16px 0 0; font-size: 13px; color: var(--accent-600); font-weight: 600; }
+  .price-trial { margin: 8px 0 0; font-size: 12.5px; color: var(--accent-600); font-weight: 600; }
   .price-foot { text-align: center; font-size: 13px; color: var(--text-3); margin: 28px auto 0; max-width: 60ch; text-wrap: pretty; }
 
   @media (max-width: 760px) {
@@ -476,20 +464,10 @@
   .foot-links a { text-decoration: none; color: var(--text-3); }
   .foot-links a:hover { color: var(--text); }
 
-  /* ---- Section reveal on scroll ---- */
-  .feat, .download, .footer { opacity: 1; }
-  .reveal-section { opacity: 0; transform: translateY(32px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
-  .reveal-section.is-visible { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal-section { opacity: 1; transform: none; transition: none; }
-  }
-
   /* responsive */
   @media (max-width: 900px) {
     section { padding: 56px 0; }
-    .hero-grid, .priv-grid { grid-template-columns: 1fr; gap: 40px; }
-    .hero-grid > div:first-child { text-align: center; }
-    .hero-ctas { justify-content: center; }
+    .priv-grid { grid-template-columns: 1fr; }
     .priv-grid { grid-template-columns: 1fr; }
   }
 
@@ -499,11 +477,12 @@
     html, body { overflow-x: hidden; }
 
     section { padding: 40px 0; }
-    .hero { padding: 20px 0 40px; }
-    .hero-visual { display: none; }
+    .hero { padding: 14px 0 34px; }
+    .hero-stage { min-height: 520px; }
+    .hero-shot { width: 250px; height: 548px; border-radius: 26px; }
+    .hero-fade { height: 196px; }
 
-    h1.title { font-size: clamp(32px, 9vw, 42px); margin: 16px 0 12px; }
-    .lede { font-size: 17px; }
+    h1.title { font-size: clamp(30px, 8.4vw, 40px); }
     .section-title { font-size: clamp(24px, 7vw, 30px); }
     .section-lede { font-size: 16px; }
 
@@ -515,7 +494,8 @@
     .bento { gap: 12px; }
 
     /* Karten kompakter */
-    .b-card, .price-card, .priv-card { padding: 20px; }
+    .b-card, .priv-card { padding: 20px; }
+    .price-card { padding: 16px; }
 
     /* Footer sauber zentriert stapeln */
     footer { padding: 32px 0 40px; }
@@ -588,6 +568,103 @@
   @media (max-width: 560px) {
     .bento { grid-template-columns: 1fr; }
   }
+
+  /* ---------- ZONE 1: BEREICHE (Kacheln) ---------- */
+  .areas { padding: 16px 0 12px; }
+  .area-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .area-card {
+    position: relative; overflow: hidden;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px;
+    box-shadow: var(--shadow-card);
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .area-card::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 90% at 100% 0%, color-mix(in oklab, var(--c) 16%, transparent) 0%, transparent 62%);
+  }
+  .area-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: color-mix(in oklab, var(--c) 45%, var(--border));
+  }
+  .area-ico {
+    width: 46px; height: 46px; border-radius: 13px;
+    background: color-mix(in oklab, var(--c) 13%, var(--card));
+    color: var(--c);
+    display: grid; place-items: center; margin-bottom: 18px;
+    position: relative; z-index: 1;
+  }
+  .area-ico svg { width: 24px; height: 24px; }
+  .area-name { display: block; font-size: 19px; font-weight: 700; letter-spacing: -0.015em; position: relative; z-index: 1; }
+  .area-sub { display: block; font-size: 14px; color: var(--text-3); margin-top: 4px; text-wrap: pretty; position: relative; z-index: 1; }
+  .a-head    { --c: #ef4444; }
+  .a-abdomen { --c: #a855f7; }
+  .a-fibro   { --c: #3b82f6; }
+
+  @media (max-width: 760px) {
+    .areas { padding: 4px 0 8px; }
+    .area-grid { grid-template-columns: 1fr; gap: 10px; }
+    .area-card { flex-direction: row; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 16px; }
+    .area-ico { margin-bottom: 0; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 11px; }
+    .area-ico svg { width: 21px; height: 21px; }
+    .area-name { font-size: 16px; }
+    .area-sub { font-size: 13px; margin-top: 1px; }
+    .area-txt { min-width: 0; position: relative; z-index: 1; }
+  }
+
+  /* ---------- ZONE 3: FEATURE-KÄRTCHEN ---------- */
+  .fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+  .fcard {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 14px 16px;
+    display: flex; gap: 12px; align-items: center; min-width: 0;
+    position: relative; min-height: 62px;
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+  .fcard:hover { border-color: color-mix(in oklab, var(--accent) 30%, var(--border)); transform: translateY(-2px); }
+  .fcard .ico {
+    flex: 0 0 32px; width: 32px; height: 32px; border-radius: 9px;
+    background: var(--accent-50); color: var(--accent);
+    display: grid; place-items: center;
+  }
+  .fcard .ico svg { width: 16px; height: 16px; }
+  .fcard h4 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; min-width: 0; white-space: nowrap; }
+  @media (max-width: 1080px) { .fgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) {
+    .fcard { padding: 12px 13px; gap: 10px; min-height: 56px; }
+    .fcard .ico { flex: 0 0 28px; width: 28px; height: 28px; border-radius: 8px; }
+    .fcard .ico svg { width: 15px; height: 15px; }
+    .fcard h4 { font-size: 13.5px; }
+  }
+
+  /* ---------- ZONE 4: PREISE ---------- */
+  .price-cta { display: flex; justify-content: center; margin-top: 30px; }
+  .price-sub { font-size: 12px; color: var(--text-4); margin-top: 2px; }
+
+  /* ---------- ZONE 6: GALERIE ---------- */
+  .gallery { border-top: 1px solid var(--border); overflow: hidden; }
+  .gal {
+    display: flex; gap: 18px; margin-top: 34px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    padding: 4px var(--pad) 10px;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; -ms-overflow-style: none;
+    cursor: grab;
+  }
+  .gal:active { cursor: grabbing; }
+  .gal::-webkit-scrollbar { display: none; }
+  .gal-item { flex: 0 0 226px; margin: 0; }
+  .gal-item img {
+    width: 100%; height: auto; display: block;
+    border-radius: 22px; border: 1px solid var(--border);
+    background: var(--card); box-shadow: var(--shadow-card);
+  }
+  @media (max-width: 760px) { .gal-item { flex: 0 0 200px; } }
+
 </style>
 </head>
 <body>
@@ -600,127 +677,144 @@
       <span>Chronica</span>
     </a>
     <div class="nav-links">
-      <a href="#features">Features</a>
+      <a href="#features">Funktionen</a>
       <a href="#preise">Preise</a>
+      <a href="#galerie">Galerie</a>
       <a href="#privacy">Datenschutz</a>
     </div>
-    <a class="nav-cta" href="https://apps.apple.com/de/app/chronica/id6790534539?pt=129156852&amp;ct=website&amp;mt=8">App laden</a>
+    <a class="nav-cta" href="https://apps.apple.com/de/app/chronica/id6790534539?pt=129156852&amp;ct=website&amp;mt=8">Kostenlos testen</a>
   </div>
 </nav>
 
-<!-- ============= HERO ============= -->
+<!-- ============= ZONE 1 — HERO ============= -->
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <h1 class="title">Dein täglicher Begleiter bei chronischen Schmerzen</h1>
-      <p class="lede">Chronica ist ein digitales Schmerztagebuch für Migräne, Endometriose &amp; andere chronische Erkrankungen. Schmerzverlauf erfassen, Muster erkennen, fertigen Arztbericht mitnehmen.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="https://apps.apple.com/de/app/chronica/id6790534539?pt=129156852&amp;ct=website&amp;mt=8">Jetzt 30 Tage kostenlos testen</a>
-      </div>
-      <p class="hero-trust">Danach ab 3,00 €/Monat. Jederzeit kündbar.</p>
+  <div class="wrap hero-stage">
+    <div class="hero-shot">
+      <img src="bilder/screenshots/01-uebersicht.png" alt="Chronica Übersicht — Kalender-Heatmap, Medikamente und Verlauf" width="1170" height="2532" />
     </div>
+    <div class="hero-fade" aria-hidden="true"></div>
+    <h1 class="title">Schmerztagebuch für chronische Krankheiten</h1>
+  </div>
+</section>
 
-    <!-- Hero visual: simple screenshot -->
-    <div class="hero-visual">
-      <div class="hero-shot">
-        <img src="bilder/uebersicht_clean.png" alt="Chronica Übersicht — Heatmap und Medikamente" width="1170" height="2391" />
-      </div>
+<!-- ============= ZONE 2 — BEREICHE ============= -->
+<section class="areas">
+  <div class="wrap">
+    <div class="area-grid">
+
+      <a class="area-card a-head" href="#features">
+        <span class="area-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 21v-2.6c0-.9.5-1.6 1.2-2.2 1.4-1.2 2.3-3 2.3-5A7 7 0 0 0 5.3 9.6c-.2 1.4-.9 2-1.7 2.8-.4.4-.4 1 .1 1.3l1.4.8v2.1c0 1.1.9 2 2 2h2"/><path d="M12 8v.01"/></svg>
+        </span>
+        <span class="area-txt">
+          <span class="area-name">Kopf</span>
+          <span class="area-sub">Migräne · Spannungskopfschmerz</span>
+        </span>
+      </a>
+
+      <a class="area-card a-abdomen" href="#features">
+        <span class="area-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c4.4 0 7-3 7-6.6 0-2.6-1.6-4.6-3.4-6.2C13.9 6.7 12.6 5.2 12 3c-.6 2.2-1.9 3.7-3.6 5.2C6.6 9.8 5 11.8 5 14.4 5 18 7.6 21 12 21Z"/></svg>
+        </span>
+        <span class="area-txt">
+          <span class="area-name">Unterbauch</span>
+          <span class="area-sub">Endometriose · Adenomyose</span>
+        </span>
+      </a>
+
+      <a class="area-card a-fibro" href="#features">
+        <span class="area-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.2" r="2.2"/><path d="M12 6.4v9M12 15.4 8.5 21M12 15.4 15.5 21M5 9.5l7 1.6 7-1.6"/></svg>
+        </span>
+        <span class="area-txt">
+          <span class="area-name">Fibromyalgie</span>
+          <span class="area-sub">Mehrere Schmerzorte · Erschöpfung</span>
+        </span>
+      </a>
+
     </div>
   </div>
 </section>
 
-<!-- ============= BENTO — FEATURES ============= -->
+<!-- ============= ZONE 3 — FUNKTIONEN ============= -->
 <section class="feat" id="features">
   <div class="wrap">
-    <div class="bento">
+    <span class="section-eyebrow">Funktionen</span>
 
-      <!-- Schmerzkurve (inkl. Abend-Check-in) -->
-      <div class="b-card b-curve">
-        <span class="b-eyebrow">Schmerzkurve</span>
-        <h3>Zeichne deinen Tag — mit dem Finger</h3>
-        <div class="b-visual">
-          <div class="crop-card">
-            <img src="bilder/crops/kurve_neu.jpg" alt="Handgezeichnete Schmerzkurve über 24 Stunden" />
-          </div>
-        </div>
+    <div class="fgrid">
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16c2.5 0 3-7 5.5-7S12 19 14 19s2.5-9 4-9 2 3 3 3"/></svg></span>
+        <h4>Schmerzkurve</h4>
       </div>
-
-      <!-- Statistik -->
-      <div class="b-card b-stats">
-        <span class="b-eyebrow">Statistik</span>
-        <h3>Aus Einträgen wird ein Muster</h3>
-        <div class="b-visual">
-          <div class="statbars">
-            <div class="statrow"><span class="lbl">Schläfen</span><span class="bar"><i style="width:100%"></i></span><span class="n">10</span></div>
-            <div class="statrow"><span class="lbl">Stirn</span><span class="bar"><i style="width:70%"></i></span><span class="n">7</span></div>
-            <div class="statrow"><span class="lbl">Ganzer Kopf</span><span class="bar"><i style="width:70%"></i></span><span class="n">7</span></div>
-            <div class="statrow"><span class="lbl">Hinterkopf</span><span class="bar"><i style="width:50%"></i></span><span class="n">5</span></div>
-          </div>
-        </div>
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18"/><circle cx="6" cy="8" r="2"/><circle cx="6" cy="16" r="2"/><path d="M11 8h8M11 16h6"/></svg></span>
+        <h4>Verlauf</h4>
       </div>
-
-      <!-- Arztbericht -->
-      <div class="b-card b-report" id="report">
-        <span class="b-eyebrow">Arztbericht</span>
-        <h3>Ein Klick zum PDF</h3>
-        <div class="b-visual">
-          <div class="rm-top">
-            <div class="rm-ico">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>
-            </div>
-            <div>
-              <div class="rm-name">Schmerzbericht als PDF</div>
-              <div class="rm-meta">30-Tage-Kurve, Heatmap &amp; Häufigkeiten</div>
-            </div>
-          </div>
-          <div class="chip-row" style="margin-top:16px;">
-            <span class="chip on">PDF exportieren</span>
-          </div>
-        </div>
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <h4>Schnell-Eintrag</h4>
       </div>
-
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+        <h4>Kalender</h4>
+      </div>
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9M10 20V4M16 20v-8M22 20H2"/></svg></span>
+        <h4>Statistik</h4>
+      </div>
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg></span>
+        <h4>PDF-Bericht</h4>
+      </div>
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M9.5 9.5 14.5 14.5"/></svg></span>
+        <h4>Medikamente</h4>
+      </div>
+      <div class="fcard">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h10M18 18h2"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="16" cy="18" r="2"/></svg></span>
+        <h4>Anpassbar</h4>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============= PREISE ============= -->
+<!-- ============= ZONE 4 — PREISE ============= -->
 <section class="price feat" id="preise">
   <div class="wrap">
     <div class="price-head">
-      <span class="section-eyebrow">Preise</span>
-      <h2 class="section-title">Ein Preis. Voller Funktionsumfang.</h2>
-      <p class="section-lede">30 Tage kostenlos testen — voller Funktionsumfang, jederzeit kündbar.</p>
+      <h2 class="section-title">30 Tage kostenlos testen.</h2>
+      <p class="section-lede">Ohne Zahlungsdaten — die Testphase läuft von selbst aus. Danach entscheidest du. Alle Tarife enthalten den vollen Funktionsumfang.</p>
     </div>
 
     <div class="price-grid">
       <!-- Monatlich -->
       <div class="price-card">
         <div class="price-name">Monatlich</div>
-        <div class="price-amount">3,99 €<span class="per"> / Monat</span></div>
-        <div class="price-trial">30 Tage kostenlos testen</div>
+        <div class="price-amount">3,99 €</div>
       </div>
 
       <!-- 6 Monate -->
       <div class="price-card featured">
         <span class="price-badge">Beliebteste Wahl</span>
         <div class="price-name">6 Monate</div>
-        <div class="price-amount">17,99 €<span class="per"> / 6 Monate</span></div>
-        <div class="price-trial">30 Tage kostenlos testen · −25 %</div>
+        <div class="price-amount">17,99 €</div>
       </div>
 
       <!-- Lifetime -->
       <div class="price-card">
         <div class="price-name">Lifetime</div>
-        <div class="price-amount">34,99 €<span class="per"> einmalig</span></div>
-        <div class="price-trial">&nbsp;</div>
+        <div class="price-amount">34,99 €</div>
       </div>
     </div>
 
-    <p class="price-foot">Alle Tarife mit vollem Funktionsumfang inkl. aller zukünftigen Features. Abos jederzeit kündbar.</p>
-  </div>
+    <div class="price-cta">
+      <a class="btn btn-primary" href="https://apps.apple.com/de/app/chronica/id6790534539?pt=129156852&amp;ct=website&amp;mt=8">30 Tage kostenlos testen</a>
+    </div>
+
+      </div>
 </section>
 
-<!-- ============= PRIVACY ============= -->
+<!-- ============= ZONE 5 — PRIVACY ============= -->
 <section class="feat" id="privacy">
   <div class="wrap">
     <span class="section-eyebrow">Datenschutz</span>
@@ -761,14 +855,50 @@
   </div>
 </section>
 
-<!-- ============= DOWNLOAD ============= -->
+<!-- ============= ZONE 6 — GALERIE ============= -->
+<section class="gallery" id="galerie">
+  <div class="wrap">
+    <span class="section-eyebrow">Galerie</span>
+    <h2 class="section-title">So sieht Chronica aus.</h2>
+  </div>
+
+  <div class="gal">
+      <figure class="gal-item">
+        <img src="bilder/screenshots/01-uebersicht.png" alt="Übersicht mit Kalender-Heatmap" width="1170" height="2532" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/02-schmerzkurve.png" alt="Schmerzkurve über 24 Stunden zeichnen" width="1170" height="2532" loading="lazy" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/03-eintrag.png" alt="Täglicher Eintrag im Assistenten" width="1170" height="2532" loading="lazy" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/04-verlauf.png" alt="Verlauf mit Maßnahmen, Zuständen und Ereignissen" width="1170" height="2532" loading="lazy" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/05-statistik.png" alt="Statistik mit Kurve und Kennzahlen" width="1170" height="2532" loading="lazy" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/06-wochenrueckblick.png" alt="Wochenrückblick im Vergleich zur Vorwoche" width="1170" height="2532" loading="lazy" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/07-muster.png" alt="Muster: Schmerzorte und Begleitsymptome" width="1170" height="2532" loading="lazy" />
+      </figure>
+      <figure class="gal-item">
+        <img src="bilder/screenshots/08-serie.png" alt="Abgeschlossener Eintrag mit Serie" width="1170" height="2532" loading="lazy" />
+      </figure>
+  </div>
+</section>
+
+<!-- ============= ZONE 7 — DOWNLOAD ============= -->
 <section class="download" id="download">
   <div class="wrap">
     <span class="section-eyebrow">Download</span>
     <h2 class="section-title">Fang heute Abend an.</h2>
     <div class="cta-wrap">
-      <a class="btn btn-primary" href="https://apps.apple.com/de/app/chronica/id6790534539?pt=129156852&amp;ct=website&amp;mt=8">Jetzt 30 Tage kostenlos testen</a>
+      <a class="btn btn-primary" href="https://apps.apple.com/de/app/chronica/id6790534539?pt=129156852&amp;ct=website&amp;mt=8">30 Tage kostenlos testen</a>
     </div>
+    <p class="hero-trust" style="margin-top:16px;">Ohne Zahlungsdaten. Läuft automatisch aus — es wird nichts abgebucht.</p>
   </div>
 </section>
 
@@ -789,38 +919,60 @@
   </div>
 </footer>
 
-<script>
-  /* SECTION REVEAL — dezentes Einblenden beim Scrollen */
-  (function initSectionReveal() {
-    const targets = document.querySelectorAll('section.feat, section.download');
-    targets.forEach(el => el.classList.add('reveal-section'));
-    const sio = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          sio.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
-    targets.forEach(el => sio.observe(el));
-  })();
 
-  /* STATISTIK-BALKEN — Wachsen beim Sichtbarwerden */
-  (function initBarReveal() {
-    const barIO = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        e.target.querySelectorAll('.statrow .bar > i').forEach((bar, i) => {
-          const w = bar.style.width || getComputedStyle(bar).width;
-          bar.style.width = '0%';
-          bar.style.transition = 'width 900ms cubic-bezier(.2,.8,.2,1)';
-          setTimeout(() => { bar.style.width = w; }, 80 + i * 60);
-        });
-        barIO.unobserve(e.target);
-      });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.statbars').forEach(el => barIO.observe(el));
-  })();
+<script>
+/* Galerie: endloser, langsamer Lauf. Rein dekorativ — ohne JS bleibt die
+   Galerie eine ganz normale, mit dem Finger scrollbare Reihe. */
+(function () {
+  var gal = document.querySelector('.gal');
+  if (!gal || !window.requestAnimationFrame) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* Inhalt zweimal klonen: dadurch liegt links und rechts immer eine volle
+     Runde Puffer, egal in welche Richtung gezogen wird. */
+  var originals = Array.prototype.slice.call(gal.children);
+  for (var pass = 0; pass < 2; pass++) {
+    originals.forEach(function (el) {
+      var copy = el.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      var img = copy.querySelector('img');
+      if (img) img.setAttribute('loading', 'lazy');
+      gal.appendChild(copy);
+    });
+  }
+
+  var round = 0, paused = false, last = 0, pos = 0;
+  function measure() { round = gal.scrollWidth / 3; }
+  function start() { measure(); pos = round; gal.scrollLeft = pos; }
+
+  ['pointerdown', 'touchstart', 'mouseenter'].forEach(function (ev) {
+    gal.addEventListener(ev, function () { paused = true; }, { passive: true });
+  });
+  ['pointerup', 'pointercancel', 'touchend', 'touchcancel', 'mouseleave'].forEach(function (ev) {
+    gal.addEventListener(ev, function () { paused = false; }, { passive: true });
+  });
+  window.addEventListener('resize', measure);
+
+  function tick(now) {
+    var dt = last ? Math.min(now - last, 100) : 16;
+    last = now;
+    if (round > 0) {
+      /* scrollLeft rastet auf ganze Pixel — deshalb die Position selbst als
+         Kommazahl führen und nur zugewiesen, sonst bleibt der Lauf stehen. */
+      if (Math.abs(gal.scrollLeft - pos) > 2) pos = gal.scrollLeft;   /* gezogen */
+      if (!paused) pos += dt * 0.035;                                 /* ~35 px pro Sekunde */
+      if (pos > round * 2) pos -= round;
+      else if (pos < round * 0.5) pos += round;
+      gal.scrollLeft = pos;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === 'complete') start();
+  else window.addEventListener('load', start);
+  requestAnimationFrame(tick);
+})();
 </script>
+
 </body>
 </html>
