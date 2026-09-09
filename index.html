@@ -112,14 +112,13 @@
     display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
   }
 
-  /* Mockup: leicht nach hinten geneigt, unten weichgezeichnet */
+  /* Mockup: gerade, unten weichgezeichnet */
   .hero-shot {
     position: absolute; top: 0; left: 50%;
     width: 320px; max-width: 76vw; height: 700px;
     border-radius: 30px; border: 1px solid var(--border);
     overflow: hidden; background: var(--card);
-    transform: translateX(-50%) perspective(1500px) rotateX(9deg);
-    transform-origin: 50% 0%;
+    transform: translateX(-50%);
     box-shadow: 0 24px 60px rgba(17,24,39,.10);
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 83%, transparent 99%);
     mask-image: linear-gradient(180deg, #000 0%, #000 83%, transparent 99%);
