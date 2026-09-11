@@ -656,7 +656,16 @@
   }
   .gal:active { cursor: grabbing; }
   .gal::-webkit-scrollbar { display: none; }
+  .gal-track { display: flex; gap: 18px; }
   .gal-item { flex: 0 0 226px; margin: 0; }
+  /* Mit JS: kein Scrollen, sondern ein Band, das per transform verschoben
+     wird — läuft auf der GPU und damit auch unter 1 px pro Frame butterweich. */
+  .gal.gal--run {
+    overflow: hidden; touch-action: pan-y;
+    user-select: none; -webkit-user-select: none;
+  }
+  .gal--run .gal-track { will-change: transform; }
+  .gal--run img { pointer-events: none; -webkit-user-drag: none; }
   .gal-item img {
     width: 100%; height: auto; display: block;
     border-radius: 22px; border: 1px solid var(--border);
@@ -862,30 +871,32 @@
   </div>
 
   <div class="gal">
+    <div class="gal-track">
       <figure class="gal-item">
-        <img src="bilder/screenshots/01-uebersicht.png" alt="Übersicht mit Kalender-Heatmap" width="1170" height="2532" />
+        <img src="bilder/screenshots/web/01-uebersicht.jpg" alt="Übersicht mit Kalender-Heatmap" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/02-schmerzkurve.png" alt="Schmerzkurve über 24 Stunden zeichnen" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/02-schmerzkurve.jpg" alt="Schmerzkurve über 24 Stunden zeichnen" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/03-eintrag.png" alt="Täglicher Eintrag im Assistenten" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/03-eintrag.jpg" alt="Täglicher Eintrag im Assistenten" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/04-verlauf.png" alt="Verlauf mit Maßnahmen, Zuständen und Ereignissen" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/04-verlauf.jpg" alt="Verlauf mit Maßnahmen, Zuständen und Ereignissen" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/05-statistik.png" alt="Statistik mit Kurve und Kennzahlen" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/05-statistik.jpg" alt="Statistik mit Kurve und Kennzahlen" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/06-wochenrueckblick.png" alt="Wochenrückblick im Vergleich zur Vorwoche" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/06-wochenrueckblick.jpg" alt="Wochenrückblick im Vergleich zur Vorwoche" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/07-muster.png" alt="Muster: Schmerzorte und Begleitsymptome" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/07-muster.jpg" alt="Muster: Schmerzorte und Begleitsymptome" width="540" height="1170" decoding="async" />
       </figure>
       <figure class="gal-item">
-        <img src="bilder/screenshots/08-serie.png" alt="Abgeschlossener Eintrag mit Serie" width="1170" height="2532" loading="lazy" />
+        <img src="bilder/screenshots/web/08-serie.jpg" alt="Abgeschlossener Eintrag mit Serie" width="540" height="1170" decoding="async" />
       </figure>
+    </div>
   </div>
 </section>
 
@@ -924,52 +935,80 @@
    Galerie eine ganz normale, mit dem Finger scrollbare Reihe. */
 (function () {
   var gal = document.querySelector('.gal');
-  if (!gal || !window.requestAnimationFrame) return;
+  var track = gal && gal.querySelector('.gal-track');
+  if (!track || !window.requestAnimationFrame) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  /* Inhalt zweimal klonen: dadurch liegt links und rechts immer eine volle
-     Runde Puffer, egal in welche Richtung gezogen wird. */
-  var originals = Array.prototype.slice.call(gal.children);
+  /* Inhalt zweimal klonen: so ist rechts vom sichtbaren Bereich immer
+     genug Band da, und beim Zurückspringen um eine Runde sieht man nichts. */
+  var originals = Array.prototype.slice.call(track.children);
   for (var pass = 0; pass < 2; pass++) {
     originals.forEach(function (el) {
       var copy = el.cloneNode(true);
       copy.setAttribute('aria-hidden', 'true');
-      var img = copy.querySelector('img');
-      if (img) img.setAttribute('loading', 'lazy');
-      gal.appendChild(copy);
+      track.appendChild(copy);
     });
   }
+  gal.classList.add('gal--run');
 
-  var round = 0, paused = false, last = 0, pos = 0;
-  function measure() { round = gal.scrollWidth / 3; }
-  function start() { measure(); pos = round; gal.scrollLeft = pos; }
+  var SPEED = 0.035;                 /* ~35 px pro Sekunde */
+  var round = 0, pos = 0, vel = SPEED, last = 0;
+  var hover = false, drag = null, visible = true, running = false;
 
-  ['pointerdown', 'touchstart', 'mouseenter'].forEach(function (ev) {
-    gal.addEventListener(ev, function () { paused = true; }, { passive: true });
+  /* Eine Runde = Abstand vom ersten Original zur ersten Kopie (inkl. Lücke). */
+  function measure() { round = track.children[originals.length].offsetLeft - track.children[0].offsetLeft; }
+
+  gal.addEventListener('mouseenter', function () { hover = true; });
+  gal.addEventListener('mouseleave', function () { hover = false; });
+
+  gal.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    drag = { id: e.pointerId, x: e.clientX, t: performance.now() };
+    vel = 0;
+    gal.setPointerCapture(e.pointerId);
   });
-  ['pointerup', 'pointercancel', 'touchend', 'touchcancel', 'mouseleave'].forEach(function (ev) {
-    gal.addEventListener(ev, function () { paused = false; }, { passive: true });
+  gal.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var now = performance.now(), dx = e.clientX - drag.x, dtm = Math.max(now - drag.t, 1);
+    pos -= dx;
+    vel = vel * 0.6 + (-dx / dtm) * 0.4;   /* Tempo merken für den Schwung */
+    drag.x = e.clientX; drag.t = now;
   });
+  function release(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (performance.now() - drag.t > 80) vel = 0;   /* losgelassen ohne Wischen */
+    drag = null;
+  }
+  gal.addEventListener('pointerup', release);
+  gal.addEventListener('pointercancel', release);
   window.addEventListener('resize', measure);
 
   function tick(now) {
-    var dt = last ? Math.min(now - last, 100) : 16;
+    var dt = last ? Math.min(now - last, 50) : 16;
     last = now;
-    if (round > 0) {
-      /* scrollLeft rastet auf ganze Pixel — deshalb die Position selbst als
-         Kommazahl führen und nur zugewiesen, sonst bleibt der Lauf stehen. */
-      if (Math.abs(gal.scrollLeft - pos) > 2) pos = gal.scrollLeft;   /* gezogen */
-      if (!paused) pos += dt * 0.035;                                 /* ~35 px pro Sekunde */
-      if (pos > round * 2) pos -= round;
-      else if (pos < round * 0.5) pos += round;
-      gal.scrollLeft = pos;
+    if (!drag) {
+      /* Schwung klingt weich zum Grundtempo aus; bei Hover sanft anhalten. */
+      var target = hover ? 0 : SPEED;
+      vel += (target - vel) * (1 - Math.exp(-dt / 400));
+      pos += vel * dt;
     }
-    requestAnimationFrame(tick);
+    if (round > 0) pos = ((pos % round) + round) % round;
+    track.style.transform = 'translate3d(' + (-pos) + 'px,0,0)';
+    if (visible) requestAnimationFrame(tick);
+    else { running = false; last = 0; }
+  }
+  function run() { if (!running) { running = true; requestAnimationFrame(tick); } }
+
+  /* Außerhalb des Bildschirms pausieren — spart Akku. */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible) run();
+    }).observe(gal);
   }
 
-  if (document.readyState === 'complete') start();
-  else window.addEventListener('load', start);
-  requestAnimationFrame(tick);
+  measure();
+  run();
 })();
 </script>
 
