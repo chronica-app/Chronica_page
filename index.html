@@ -3,10 +3,69 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Chronica — Schmerztagebuch</title>
+<title>Chronica — Schmerztagebuch-App für Migräne &amp; Endometriose</title>
+<meta name="description" content="Schmerztagebuch-App fürs iPhone: Migräne, Endometriose und Fibromyalgie erfassen, Muster erkennen und als PDF-Bericht zum Arzt mitnehmen. 30 Tage kostenlos." />
+<link rel="canonical" href="https://www.chronica-app.com/" />
+<meta name="theme-color" content="#f9fafb" />
 <link rel="icon" href="logo.svg" type="image/svg+xml" />
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+<!-- Vorschau beim Teilen (WhatsApp, iMessage, Instagram, X …) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Chronica" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:url" content="https://www.chronica-app.com/" />
+<meta property="og:title" content="Chronica — Schmerztagebuch für chronische Krankheiten" />
+<meta property="og:description" content="Migräne, Endometriose und Fibromyalgie erfassen, Muster erkennen und als PDF-Bericht zum Arzt mitnehmen. 30 Tage kostenlos testen." />
+<meta property="og:image" content="https://www.chronica-app.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Chronica — Schmerztagebuch für chronische Krankheiten, mit Screenshot der App" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Strukturierte Daten: sagen Google, dass hier eine iOS-App vorgestellt wird -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.chronica-app.com/#website",
+      "name": "Chronica",
+      "url": "https://www.chronica-app.com/",
+      "inLanguage": "de-DE",
+      "publisher": { "@id": "https://www.chronica-app.com/#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.chronica-app.com/#organization",
+      "name": "Chronica",
+      "url": "https://www.chronica-app.com/",
+      "logo": "https://www.chronica-app.com/apple-touch-icon.png",
+      "email": "orga@chronica-app.com"
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "Chronica",
+      "description": "Schmerztagebuch für chronische Krankheiten wie Migräne, Spannungskopfschmerz, Endometriose, Adenomyose und Fibromyalgie — mit Schmerzkurve, Kalender, Statistik, Medikamenten und PDF-Bericht.",
+      "operatingSystem": "iOS",
+      "applicationCategory": "HealthApplication",
+      "inLanguage": "de",
+      "url": "https://www.chronica-app.com/",
+      "downloadUrl": "https://apps.apple.com/de/app/chronica/id6790534539",
+      "image": "https://www.chronica-app.com/og-image.png",
+      "screenshot": "https://www.chronica-app.com/bilder/screenshots/web/01-uebersicht.jpg",
+      "publisher": { "@id": "https://www.chronica-app.com/#organization" },
+      "offers": [
+        { "@type": "Offer", "name": "Monatlich", "price": "3.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "6 Monate", "price": "17.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Lifetime", "price": "34.99", "priceCurrency": "EUR" }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   /* ----------------------------------------------------------
      Chronica marketing site
@@ -393,9 +452,8 @@
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary::after {
     content: "+"; font-weight: 400; color: var(--text-3); font-size: 22px;
-    transition: transform 160ms ease; display: inline-block;
+    display: inline-block;
   }
-  .faq-item[open] summary::after { transform: rotate(45deg); }
   .faq-item .a { padding: 0 0 20px; color: var(--text-3); font-size: 15px; max-width: 64ch; text-wrap: pretty; }
 
   /* ---- Preise ---- */
@@ -701,7 +759,7 @@
 <section class="hero">
   <div class="wrap hero-stage">
     <div class="hero-shot">
-      <img src="bilder/screenshots/01-uebersicht.png" alt="Chronica Übersicht — Kalender-Heatmap, Medikamente und Verlauf" width="1170" height="2532" />
+      <img src="bilder/screenshots/01-uebersicht.png" alt="Chronica Übersicht — Kalender-Heatmap, Medikamente und Verlauf" width="1170" height="2532" fetchpriority="high" />
     </div>
     <div class="hero-fade" aria-hidden="true"></div>
     <h1 class="title">Schmerztagebuch für chronische Krankheiten</h1>
@@ -902,6 +960,74 @@
     </div>
   </div>
 </section>
+
+<!-- ============= ZONE 6b — FAQ ============= -->
+<section class="feat" id="faq">
+  <div class="wrap">
+    <div class="bento-head" style="margin-bottom: 0;">
+      <span class="section-eyebrow">FAQ</span>
+      <h2 class="section-title">Häufige Fragen</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Was ist Chronica?</summary>
+        <div class="a">Chronica ist ein Schmerztagebuch fürs iPhone für Menschen mit chronischen Schmerzen. Jeden Abend trägst du in unter zwei Minuten ein, wie dein Tag war – und siehst über Wochen und Monate, wie sich deine Schmerzen entwickeln.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Für welche Krankheiten eignet sich Chronica?</summary>
+        <div class="a">Chronica hat drei Bereiche: Kopf (Migräne, Spannungskopfschmerz), Unterbauch (Endometriose, Adenomyose, Regelschmerzen) und Fibromyalgie. Du kannst einen Bereich nutzen oder mehrere gleichzeitig.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Wie funktioniert ein Eintrag?</summary>
+        <div class="a">Du gibst deinen Gesamtschmerz von 0 bis 10 an und zeichnest mit dem Finger deine Schmerzkurve über 24 Stunden. Danach wählst du Ort, Schmerzcharakter, Begleitsymptome, Auslöser und Medikamente. Schritte, die du nicht brauchst, schaltest du ab. Für akute Momente gibt es den Schnell-Eintrag.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Kann ich den Bericht beim Arzt vorzeigen?</summary>
+        <div class="a">Ja. Mit einem Tipp erstellst du einen Arztbericht als PDF im A4-Format – mit Kennzahlen, Kalender, Verlaufskurve, Tagesverlauf, Medikamenten und den häufigsten Symptomen. Du kannst ihn per AirDrop, Mail oder Messenger teilen oder ausdrucken. Chronica ersetzt keine ärztliche Beratung.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Kann ich meine Medikamente dokumentieren?</summary>
+        <div class="a">Ja, getrennt nach Bedarfs- und Dauermedikamenten, jeweils mit Uhrzeit. Die Einnahmen erscheinen direkt in deiner Verlaufskurve. Gängige Wirkstoffe sind schon hinterlegt, eigene kannst du jederzeit ergänzen.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Zeigt mir Chronica meine Auslöser?</summary>
+        <div class="a">Chronica zählt mit, welche Auslöser und Symptome wie oft dabei waren, und zeigt Muster nach Wochentag und Tageszeit. Was dahintersteckt, besprichst du am besten mit deiner Ärztin oder deinem Arzt.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Was kostet Chronica?</summary>
+        <div class="a">Die ersten 30 Tage sind kostenlos, ohne Zahlungsdaten. Die Testphase startet mit der Registrierung und läuft von selbst aus. Danach kostet Chronica 3,99 € im Monat, 17,99 € für 6 Monate oder einmalig 34,99 € (Lifetime). Jeder Tarif enthält alle Funktionen.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Wie sicher sind meine Gesundheitsdaten?</summary>
+        <div class="a">Deine Daten liegen verschlüsselt auf Servern in der EU (Frankfurt) – niemand außer dir kommt an deine Einträge. Keine Werbung, kein Weiterverkauf. Die Nutzungsstatistik kannst du abschalten und dein Konto samt allen Daten direkt in der App löschen.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Gibt es Chronica für Android oder iPad?</summary>
+        <div class="a">Nein, Chronica gibt es derzeit nur fürs iPhone und nur auf Deutsch.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ für Google: muss wörtlich zum sichtbaren Text oben passen -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Was ist Chronica?", "acceptedAnswer": { "@type": "Answer", "text": "Chronica ist ein Schmerztagebuch fürs iPhone für Menschen mit chronischen Schmerzen. Jeden Abend trägst du in unter zwei Minuten ein, wie dein Tag war – und siehst über Wochen und Monate, wie sich deine Schmerzen entwickeln." } },
+    { "@type": "Question", "name": "Für welche Krankheiten eignet sich Chronica?", "acceptedAnswer": { "@type": "Answer", "text": "Chronica hat drei Bereiche: Kopf (Migräne, Spannungskopfschmerz), Unterbauch (Endometriose, Adenomyose, Regelschmerzen) und Fibromyalgie. Du kannst einen Bereich nutzen oder mehrere gleichzeitig." } },
+    { "@type": "Question", "name": "Wie funktioniert ein Eintrag?", "acceptedAnswer": { "@type": "Answer", "text": "Du gibst deinen Gesamtschmerz von 0 bis 10 an und zeichnest mit dem Finger deine Schmerzkurve über 24 Stunden. Danach wählst du Ort, Schmerzcharakter, Begleitsymptome, Auslöser und Medikamente. Schritte, die du nicht brauchst, schaltest du ab. Für akute Momente gibt es den Schnell-Eintrag." } },
+    { "@type": "Question", "name": "Kann ich den Bericht beim Arzt vorzeigen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Mit einem Tipp erstellst du einen Arztbericht als PDF im A4-Format – mit Kennzahlen, Kalender, Verlaufskurve, Tagesverlauf, Medikamenten und den häufigsten Symptomen. Du kannst ihn per AirDrop, Mail oder Messenger teilen oder ausdrucken. Chronica ersetzt keine ärztliche Beratung." } },
+    { "@type": "Question", "name": "Kann ich meine Medikamente dokumentieren?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, getrennt nach Bedarfs- und Dauermedikamenten, jeweils mit Uhrzeit. Die Einnahmen erscheinen direkt in deiner Verlaufskurve. Gängige Wirkstoffe sind schon hinterlegt, eigene kannst du jederzeit ergänzen." } },
+    { "@type": "Question", "name": "Zeigt mir Chronica meine Auslöser?", "acceptedAnswer": { "@type": "Answer", "text": "Chronica zählt mit, welche Auslöser und Symptome wie oft dabei waren, und zeigt Muster nach Wochentag und Tageszeit. Was dahintersteckt, besprichst du am besten mit deiner Ärztin oder deinem Arzt." } },
+    { "@type": "Question", "name": "Was kostet Chronica?", "acceptedAnswer": { "@type": "Answer", "text": "Die ersten 30 Tage sind kostenlos, ohne Zahlungsdaten. Die Testphase startet mit der Registrierung und läuft von selbst aus. Danach kostet Chronica 3,99 € im Monat, 17,99 € für 6 Monate oder einmalig 34,99 € (Lifetime). Jeder Tarif enthält alle Funktionen." } },
+    { "@type": "Question", "name": "Wie sicher sind meine Gesundheitsdaten?", "acceptedAnswer": { "@type": "Answer", "text": "Deine Daten liegen verschlüsselt auf Servern in der EU (Frankfurt) – niemand außer dir kommt an deine Einträge. Keine Werbung, kein Weiterverkauf. Die Nutzungsstatistik kannst du abschalten und dein Konto samt allen Daten direkt in der App löschen." } },
+    { "@type": "Question", "name": "Gibt es Chronica für Android oder iPad?", "acceptedAnswer": { "@type": "Answer", "text": "Nein, Chronica gibt es derzeit nur fürs iPhone und nur auf Deutsch." } }
+  ]
+}
+</script>
 
 <!-- ============= ZONE 7 — DOWNLOAD ============= -->
 <section class="download" id="download">
