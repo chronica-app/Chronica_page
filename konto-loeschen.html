@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Konto l&ouml;schen &mdash; Chronica</title>
+<meta name="description" content="So l&ouml;schst du dein Chronica-Konto und alle gespeicherten Daten &mdash; direkt in der App oder per E-Mail, auch ohne installierte App." />
+<link rel="canonical" href="https://www.chronica-app.com/konto-loeschen" />
+<meta name="theme-color" content="#f9fafb" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Chronica" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:url" content="https://www.chronica-app.com/konto-loeschen" />
+<meta property="og:title" content="Konto l&ouml;schen &mdash; Chronica" />
+<meta property="og:image" content="https://www.chronica-app.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="logo.svg" type="image/svg+xml" />
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<style>
+  :root {
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-2: #374151;
+    --text-3: #6b7280;
+    --text-4: #9ca3af;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+    --accent: #ef4444;
+    --accent-600: #dc2626;
+    --accent-100: #fee2e2;
+    --accent-50: #fef2f2;
+    --radius-card: 16px;
+    --radius-btn: 12px;
+    --shadow-card: 0 1px 2px rgba(17,24,39,.04), 0 8px 24px rgba(17,24,39,.04);
+    --max: 1200px;
+    --pad: 24px;
+    --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Roboto, sans-serif;
+  }
+  html[data-theme="dark"] {
+    --bg: #000000;
+    --card: #111111;
+    --text: #ffffff;
+    --text-2: #e5e7eb;
+    --text-3: #9ca3af;
+    --text-4: #6b7280;
+    --border: #222222;
+    --border-light: #1a1a1a;
+    --accent-50: #1a0808;
+    --accent-100: #2a0d0d;
+    --shadow-card: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img, svg { display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+  /* Schmalere, zentrierte Spalte für Seitenkopf + Inhalt — Nav und Footer
+     bleiben auf voller Breite, damit sie zum Rest der Website passen. */
+  .wrap-narrow { max-width: 860px; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; color: inherit;
+  }
+  .logo-mark { width: 28px; height: 28px; border-radius: 8px; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--text-3); }
+  .nav-links a { text-decoration: none; color: var(--text-3); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    padding: 9px 16px; border-radius: var(--radius-btn);
+    background: var(--accent); color: white; text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: background 120ms ease;
+  }
+  .nav-cta:hover { background: var(--accent-600); text-decoration: none; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-header .breadcrumb {
+    font-size: 13px; color: var(--text-3); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .page-header .breadcrumb a { color: var(--text-3); text-decoration: none; }
+  .page-header .breadcrumb a:hover { color: var(--text); }
+  .page-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; letter-spacing: -0.025em;
+  }
+  .page-header .meta { font-size: 13px; color: var(--text-4); }
+
+  /* CONTENT */
+  .legal-content {
+    padding: 56px 0 96px;
+  }
+  .legal-content h2 {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 48px 0 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+  }
+  .legal-content h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  .legal-content p {
+    color: var(--text-2); margin: 0 0 14px; font-size: 15px;
+  }
+  .legal-content a { color: var(--accent); }
+  .legal-content strong { color: var(--text); font-weight: 600; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 40px 0 56px; font-size: 13px; color: var(--text-3); }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .foot-links a { text-decoration: none; color: var(--text-3); }
+  .foot-links a:hover { color: var(--text); }
+
+  /* MOBILE */
+  @media (max-width: 760px) {
+    :root { --pad: 18px; }
+    html, body { overflow-x: hidden; }
+    .page-header { padding: 40px 0 28px; }
+    .legal-content { padding: 32px 0 56px; }
+    .legal-content h2 { margin: 32px 0 10px; }
+    footer { padding: 32px 0 40px; }
+    .foot { flex-direction: column; text-align: center; justify-content: center; gap: 20px; }
+    .foot-links { justify-content: center; gap: 16px 20px; }
+  }
+
+  /* DELETE-PAGE */
+  .lead { font-size: 17px; color: var(--text-2); margin: 0 0 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius-card); box-shadow: var(--shadow-card);
+    padding: 24px; margin: 0 0 20px;
+  }
+  .card h3 {
+    margin: 0 0 6px; font-size: 17px; font-weight: 700; letter-spacing: -0.015em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card .num {
+    flex: 0 0 auto; width: 26px; height: 26px; border-radius: 999px;
+    background: var(--accent-100); color: var(--accent-600);
+    font-size: 13px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .card .hint { font-size: 14px; color: var(--text-3); margin: 0 0 16px; }
+  .steps { margin: 0; padding-left: 20px; color: var(--text-2); font-size: 15px; }
+  .steps li { margin: 0 0 8px; }
+  .steps code {
+    font-family: var(--font); font-weight: 600; color: var(--text);
+    background: var(--border-light); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1px 6px; font-size: 14px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 12px 20px; border-radius: var(--radius-btn);
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 15px; font-weight: 600; transition: background 120ms ease;
+  }
+  .btn:hover { background: var(--accent-600); text-decoration: none; }
+  .legal-content a.btn { color: #fff; }
+  .note {
+    background: var(--accent-50); border: 1px solid var(--accent-100);
+    border-radius: var(--radius-card); padding: 18px 20px; margin: 24px 0 0;
+    font-size: 15px; color: var(--text-2);
+  }
+  .note strong { color: var(--text); }
+  .legal-content ul { color: var(--text-2); font-size: 15px; margin: 0 0 14px; padding-left: 20px; }
+  .legal-content ul li { margin: 0 0 6px; }
+  .lang-switch { font-size: 13px; color: var(--text-3); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="nav-links">
+      <a href="/#features">Features</a>
+      <a href="/#preise">Preise</a>
+      <a href="/#privacy">Datenschutz</a>
+    </div>
+    <a class="nav-cta" href="/#download">App laden</a>
+  </div>
+</nav>
+
+<div class="wrap wrap-narrow">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="/">Chronica</a>
+      <span>&rsaquo;</span>
+      <span>Konto l&ouml;schen</span>
+    </div>
+    <h1>Konto und Daten l&ouml;schen</h1>
+    <div class="meta">App: Chronica &middot; Anbieter: Emil Kirchhoff &middot; Stand: September 2026</div>
+    <div class="lang-switch"><a href="#english">English version below</a></div>
+  </div>
+
+  <div class="legal-content">
+
+    <p class="lead">Du kannst dein Chronica-Konto jederzeit selbst l&ouml;schen &mdash; entweder direkt in der App oder per E-Mail, falls du die App nicht mehr installiert hast. Beide Wege l&ouml;schen dein Konto und alle dazu gespeicherten Daten vollst&auml;ndig und unwiderruflich.</p>
+
+    <div class="card">
+      <h3><span class="num">1</span> In der App l&ouml;schen &mdash; sofort</h3>
+      <p class="hint">Die L&ouml;schung wird direkt ausgef&uuml;hrt, ohne Wartezeit und ohne Anfrage bei uns.</p>
+      <ol class="steps">
+        <li>Chronica &ouml;ffnen und <code>Einstellungen</code> aufrufen</li>
+        <li>Nach unten zum Abschnitt <code>Account</code> scrollen</li>
+        <li><code>Account l&ouml;schen</code> antippen</li>
+        <li>Zur Best&auml;tigung <code>L&Ouml;SCHEN</code> in das Feld eingeben</li>
+        <li><code>Account unwiderruflich l&ouml;schen</code> antippen</li>
+      </ol>
+      <p class="hint" style="margin: 16px 0 0;">Ist dein Zugang abgelaufen und du landest direkt auf der Abo-Seite: dort &uuml;ber <code>Konto</code> kommst du an die gleiche L&ouml;schfunktion.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="num">2</span> Per E-Mail l&ouml;schen lassen &mdash; ohne App</h3>
+      <p class="hint">Du brauchst die App dazu nicht neu zu installieren. Wir l&ouml;schen ohne R&uuml;ckfrage.</p>
+      <ul>
+        <li>Schreibe von der E-Mail-Adresse deines Kontos an <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a></li>
+        <li>Betreff: <strong>Konto l&ouml;schen</strong></li>
+        <li>Hast du dich mit Apple oder Google angemeldet, nenne bitte die dort verwendete E-Mail-Adresse</li>
+      </ul>
+      <p style="margin: 4px 0 18px; color: var(--text-2); font-size: 15px;">Wir l&ouml;schen dein Konto in der Regel innerhalb von wenigen Tagen, sp&auml;testens innerhalb von 30 Tagen nach Eingang deiner Anfrage, und best&auml;tigen die L&ouml;schung per E-Mail.</p>
+      <a class="btn" href="mailto:orga@chronica-app.com?subject=Konto%20l%C3%B6schen&amp;body=Bitte%20l%C3%B6scht%20mein%20Chronica-Konto%20und%20alle%20dazu%20gespeicherten%20Daten.%0A%0AE-Mail-Adresse%20meines%20Kontos%3A%20">L&ouml;schung per E-Mail anfordern</a>
+    </div>
+
+    <h2>Was gel&ouml;scht wird</h2>
+    <p>Mit dem Konto werden alle personenbezogenen Daten gel&ouml;scht, die wir zu dir gespeichert haben:</p>
+    <ul>
+      <li>Konto- und Anmeldedaten (E-Mail-Adresse, Passwort bzw. Apple-/Google-Verkn&uuml;pfung)</li>
+      <li>alle Tageseintr&auml;ge und Gesundheitsdaten (Schmerzwerte, Notizen, Symptome)</li>
+      <li>eigene Kategorien und Einstellungen</li>
+      <li>erfasste Medikamenteneinnahmen</li>
+      <li>das Protokoll deiner Einwilligungen</li>
+    </ul>
+    <p>Die L&ouml;schung erfolgt sofort und unwiderruflich. Eine Wiederherstellung ist danach nicht m&ouml;glich &mdash; auch nicht durch uns.</p>
+
+    <h2>Was noch kurzzeitig bestehen bleibt</h2>
+    <ul>
+      <li><strong>Analyse-Ereignisdaten</strong> &mdash; nur, wenn du der Nutzungsanalyse zugestimmt hattest. Diese Daten liegen bei Google, sind nicht mit deinem Namen verkn&uuml;pft und werden dort nach l&auml;ngstens 14 Monaten automatisch gel&ouml;scht.</li>
+      <li><strong>Kaufbelege</strong> zu Abo oder Lifetime-Kauf verwalten Apple bzw. Google. Darauf haben wir keinen Zugriff; es gelten die gesetzlichen Aufbewahrungsfristen der Stores.</li>
+      <li><strong>Server-Logfiles dieser Website</strong> fallen beim blo&szlig;en Seitenaufruf beim Hoster an und enthalten keine Gesundheitsdaten.</li>
+    </ul>
+
+    <h2>Abo separat k&uuml;ndigen</h2>
+    <p>Das L&ouml;schen des Kontos beendet ein laufendes Abo <strong>nicht</strong>, weil die Abrechnung &uuml;ber den jeweiligen Store l&auml;uft. K&uuml;ndige das Abo zus&auml;tzlich dort:</p>
+    <ul>
+      <li>iPhone/iPad: <em>Einstellungen &rarr; Apple-ID &rarr; Abonnements</em></li>
+      <li>Android: <em>Google Play &rarr; Profil &rarr; Zahlungen und Abos &rarr; Abos</em></li>
+    </ul>
+
+    <div class="note">
+      <strong>Vorher exportieren?</strong> Wenn du deine Aufzeichnungen behalten oder deiner &Auml;rztin bzw. deinem Arzt zeigen m&ouml;chtest, erstelle vor dem L&ouml;schen den PDF-Export in der App (<em>Statistik</em> &rarr; ganz unten &bdquo;Bericht exportieren&ldquo;). Nach der L&ouml;schung ist das nicht mehr m&ouml;glich.
+    </div>
+
+    <h2>Fragen</h2>
+    <p>Bei Fragen zur L&ouml;schung oder zu deinen weiteren Rechten (Auskunft, Berichtigung, Daten&uuml;bertragbarkeit) schreib uns an <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a>. Details stehen in der <a href="/datenschutz">Datenschutzerkl&auml;rung</a>.</p>
+
+    <h2 id="english">English &mdash; Delete your account and data</h2>
+    <p>This page explains how to delete your account and all associated data for the app <strong>Chronica</strong> (provider: Emil Kirchhoff).</p>
+    <p><strong>Option 1 &mdash; in the app (immediate):</strong> open Chronica, go to <code>Settings</code>, scroll to the <code>Account</code> section, tap <code>Delete account</code>, type <code>DELETE</code> to confirm and tap <code>Delete account permanently</code>. If your access has expired and you land on the subscription screen, the same option is available there under <code>Account</code>.</p>
+    <p><strong>Option 2 &mdash; by e-mail (no app needed):</strong> send an e-mail from your account address to <a href="mailto:orga@chronica-app.com?subject=Delete%20account&amp;body=Please%20delete%20my%20Chronica%20account%20and%20all%20associated%20data.%0A%0AAccount%20e-mail%20address%3A%20">orga@chronica-app.com</a> with the subject <em>Delete account</em>. We delete the account without asking further questions, usually within a few days and at the latest within 30 days, and confirm by e-mail.</p>
+    <p><strong>Data that is deleted:</strong> account and login data, all daily entries and health data, custom categories, settings, recorded medication intakes and the consent log. Deletion is immediate and irreversible; the data cannot be restored.</p>
+    <p><strong>Data that remains for a limited time:</strong> anonymous analytics event data (only if you consented to usage analytics) is stored by Google for up to 14 months and then deleted automatically; purchase receipts are held by Apple and Google under their statutory retention periods and are outside our control; website server log files are kept by our host and contain no health data.</p>
+    <p><strong>Subscriptions:</strong> deleting your account does not cancel an active subscription, as billing is handled by the store. Cancel it in <em>Settings &rarr; Apple ID &rarr; Subscriptions</em> (iOS) or <em>Google Play &rarr; Profile &rarr; Payments and subscriptions &rarr; Subscriptions</em> (Android).</p>
+    <p>Questions: <a href="mailto:orga@chronica-app.com">orga@chronica-app.com</a>.</p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <a href="/" class="logo">
+      <img src="logo.svg" class="logo-mark" alt="Chronica Logo" width="28" height="28" />
+      <span>Chronica</span>
+    </a>
+    <div class="foot-links">
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+      <a href="/agb">AGB</a>
+      <a href="/konto-loeschen">Konto l&ouml;schen</a>
+      <a href="mailto:orga@chronica-app.com">Kontakt</a>
+    </div>
+    <div style="color: var(--text-4);">&copy; 2026 Chronica</div>
+  </div>
+</footer>
+
+</body>
+</html>
